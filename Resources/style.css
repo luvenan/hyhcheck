@@ -1,0 +1,26 @@
+/* fonts: playfair (40px) and open sans(17px). Background white. Color of paragerpah is #464646, while that of title is #030303. Button with purple outline #6A3BAF size 13px, open sans, all caps*/
+
+html {
+    font-size: 17px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+body {
+    text-align: center;
+    margin: 50px 200px;
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+}
+
+p {
+    text-align: left;
+    line-height: 2;
+}
+
+#textbox {
+    font-family: 'Open Sans', sans serif;
+    font-size: 15px;
+}
