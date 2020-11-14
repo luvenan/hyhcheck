@@ -35,7 +35,7 @@ console.log(commonArr);
 
 
 
-//Show triggers that were found on the DOM
+//Goes through the found triggers and shows them on the DOM, show "it's safe" if no triggers found
 
 
    
