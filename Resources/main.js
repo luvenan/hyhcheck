@@ -59,13 +59,23 @@ console.log(commonArr);
 */
 
 //Creates event listener for clicking the send button, to run findTriggers (or a function that uses it as a callback function)
-let button = document.getElementById('send');
+//let button = document.getElementById('send');
 //let arrIngred2 = makeArr();
 
-button.onclick = findTriggers(makeArr(), triggerList);
+//button.onclick = findTriggers(makeArr(), triggerList);
+
+//next would be to make the button turn into "reset" after the click, then reset, then run again. But first, gotta make it run properly on the click. It's not right now. 
 
 
-   
+//Let's try another strategy: use the submit as an event as per the video I just watched. Program it:
+
+const myForm = document.getElementById('ingredForm');
+
+myForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    console.log('ingredients have been submitted')
+    findTriggers(makeArr(), triggerList);
+});
  
 
 //For later, trigger area, divided by categories
