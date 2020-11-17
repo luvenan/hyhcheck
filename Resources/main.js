@@ -1,13 +1,6 @@
-//Amost there, current issue: not checking when I click the check button, and resetting the form every time I do without showing the results. 
+//JS code for the HYH checker
 
-//JS code for the HYH checker. Should be a nested loop that goes through the form array, then checks through the trigger array, should return a trigger list array. For each trigger in the contains array, should return a personalized message that needs to replace the content and make a function run because it makes the part show up. 
-
-//Select the target value property - this HAS TO BE WHAT IS GOING WRONG
-let test = document.getElementById('textbox').value;
-
-
-//First: turn the input into an array of triggers, dividing up by ', ', also turn everything lowercase.
-
+//This function turns the input into an array of triggers, dividing up by ', ', also turn everything lowercase.
 
 function makeArr() {
     let ingredients = document.getElementById('textbox').value;
@@ -16,17 +9,11 @@ function makeArr() {
     return arrIngred1;
 };
 
-//test for the makeArr function
-
-//let ingredients = 'bananas, CITRUS, Chocolate, apple'
-//let newarr = makeArr(ingredients);
-//console.log(newarr);
-
 //Short trigger list to test functionality
-let triggerList = ['peanuts', 'almonds', 'msg', 'orange', 'soy sauce'];
+let triggerList = ['peanut', 'almond', 'msg', 'orange', 'soy sauce', 'banana', 'chocolate'];
 
 
-//Loop through both arrays, find common items, create third array
+//This function checks for triggers. It loop through both arrays, find common items, create third array, check if any triggers. If none, say it is safe. If some, return message saying it is unsafe with trigger list.
 
 function findTriggers(arr1, arr2) {
     let foundTriggers = [];
@@ -43,31 +30,15 @@ function findTriggers(arr1, arr2) {
     } else {
         document.getElementById('safe').hidden = true;
         document.getElementById('notsafe').hidden = false;
-        document.getElementById('listoftriggers').innerHTML = foundTriggers;
-        console.log('this product has these triggers' + foundTriggers)
+        let stringTriggers = foundTriggers.join(', ')
+        console.log('this product has these triggers: ' + stringTriggers);
+        document.getElementById('listoftriggers').innerHTML = stringTriggers;
     }
     return foundTriggers;
 };
 
 
-
-/*Test area for the nested loop
-let testArray = ['milk', 'orange', 'peanuts', 'tomato'];
-
-let commonArr = findTriggers(testArray, triggerList);
-console.log(commonArr);
-*/
-
-//Creates event listener for clicking the send button, to run findTriggers (or a function that uses it as a callback function)
-//let button = document.getElementById('send');
-//let arrIngred2 = makeArr();
-
-//button.onclick = findTriggers(makeArr(), triggerList);
-
-//next would be to make the button turn into "reset" after the click, then reset, then run again. But first, gotta make it run properly on the click. It's not right now. 
-
-
-//Let's try another strategy: use the submit as an event as per the video I just watched. Program it:
+//This creates an event listener for the form submit action (at the click of the send button). First, we prevent the form's default action to take me to another page or reset the page. Then we execute the find triggers function, using the makeArr function as the first argument, and the trigger list as the second argument.
 
 const myForm = document.getElementById('ingredForm');
 
@@ -78,7 +49,8 @@ myForm.addEventListener('submit', (e) => {
 });
  
 
-//For later, trigger area, divided by categories
+//For later, trigger area, divided by categories, may change 
+/*
 let msg = [];
 let processedMeats = [];
 let dairy = [];
@@ -88,3 +60,4 @@ let vegetables = [];
 let freshYeast = [];
 let sugarSubs = [];
 let others = [];
+*/
