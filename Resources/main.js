@@ -1,15 +1,15 @@
 //JS code for the HYH checker. Should be a nested loop that goes through the form array, then checks through the trigger array, should return a trigger list array. For each trigger in the contains array, should return a personalized message that needs to replace the content and make a function run because it makes the part show up. 
 
 //Select the target value property
-let ingredients = document.getElementById('textbox').target.value;
-//console.log(ingredients)
+let ingredients = document.getElementById('textbox').value;
+console.log(ingredients)
 
 //First: turn the input into an array of triggers, dividing up by ', ', also turn everything lowercase.
 
 
 function makeArr(ingredients) {
     let ingredlower = ingredients.toLowerCase();
-    let arrIngred = ingredlower.split(', ');
+    let arrIngred1 = ingredlower.split(', ');
     return arrIngred1;
 };
 
