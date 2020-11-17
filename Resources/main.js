@@ -2,7 +2,7 @@
 
 //Select the target value property
 let ingredients = document.getElementById('textbox').target.value;
-
+//console.log(ingredients)
 
 //First: turn the input into an array of triggers, dividing up by ', ', also turn everything lowercase.
 
@@ -10,7 +10,7 @@ let ingredients = document.getElementById('textbox').target.value;
 function makeArr(ingredients) {
     let ingredlower = ingredients.toLowerCase();
     let arrIngred = ingredlower.split(', ');
-    return arrIngred;
+    return arrIngred1;
 };
 
 /*test for the makeArr function
@@ -34,6 +34,13 @@ function findTriggers(arr1, arr2) {
             };
         };
     };
+    if (foundTriggers === []) {
+        document.getElementById('safe').hidden = false;
+    }
+    if (foundTriggers === true) {
+        document.getElementById('unsafe').hidden = false;
+        document.getElementById('listoftriggers').innerHTML = foundTriggers;
+    }
     return foundTriggers;
 };
 
@@ -47,9 +54,9 @@ console.log(commonArr);
 */
 
 //Creates event listener for clicking the send button, to run findTriggers (or a function that uses it as a callback function)
-
-
-//Goes through the found triggers and shows them on the DOM, show "it's safe" if no triggers found
+let button = document.getElementById('send');
+let arrIngred2 = makeArr(ingredients);
+button.onclick = findTriggers(arrIngred2, triggerList);
 
 
    

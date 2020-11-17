@@ -25,12 +25,12 @@
       <form action ='./ingredients.html' method='POST'>
         <textarea id='textbox' name='ingredList' rows='20' cols='100' placeholder="Type or paste the ingredients here, separated by a comma." required></textarea>
         <br>  
-        <input type="submit" value="Check">
+        <input id = 'send' type="submit" value="Check">
       </form>
 
       <!--Post results here, have things in categories (MSG, types of beans, citrus fruits, etc.) to make it simpler and more readable. Colorcode the answers-->
       <div id='results'>
-      <h2 id="notsafe" hidden>This product is not safe on the HYH diet, it contains these triggers:</h2>
+      <h2 id="notsafe" hidden>This product is not safe on the HYH diet, it contains these triggers:<span id='listoftriggers'></span></h2>
       <h2 id="safe" hidden>This product is HYH safe!</h2>
       </div>
 
@@ -41,5 +41,7 @@
    
 <footer>
 </footer>
+
+<script  src="./Resources/main.js"></script>
 </body>
 </html>
