@@ -1,12 +1,26 @@
 //JS code for the HYH checker. Should be a nested loop that goes through the form array, then checks through the trigger array, should return a trigger list array. For each trigger in the contains array, should return a personalized message that needs to replace the content and make a function run because it makes the part show up. 
 
+//Select the target value property
+let ingredients = document.getElementById('textbox').target.value;
+
+
 //First: turn the input into an array of triggers, dividing up by ', ', also turn everything lowercase.
+
+
 function makeArr(ingredients) {
-    let arrIngred = ingredients.split(', ');
+    let ingredlower = ingredients.toLowerCase();
+    let arrIngred = ingredlower.split(', ');
     return arrIngred;
 };
 
+/*test for the makeArr function
+let ingredients = 'bananas, CITRUS, Chocolate, apple'
+let newarr = makeArr(ingredients);
+console.log(newarr);
+*/
+
 //Short trigger list to test functionality
+let triggerList = ['peanuts', 'almonds', 'msg', 'orange', 'soy sauce'];
 
 
 //Loop through both arrays, find common items, create third array
@@ -27,12 +41,12 @@ function findTriggers(arr1, arr2) {
 
 /*Test area for the nested loop
 let testArray = ['milk', 'orange', 'peanuts', 'tomato'];
-let triggerList = ['peanuts', 'almonds', 'msg', 'orange', 'soy sauce'];
 
 let commonArr = findTriggers(testArray, triggerList);
 console.log(commonArr);
 */
 
+//Creates event listener for clicking the send button, to run findTriggers (or a function that uses it as a callback function)
 
 
 //Goes through the found triggers and shows them on the DOM, show "it's safe" if no triggers found
