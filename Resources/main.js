@@ -66,17 +66,6 @@ reset.onclick = function() {
 }
 
 
-//This creates an event listener for the form submit action (at the click of the send button). First, we prevent the form's default action to take me to another page or reset the page. Then we execute the find triggers function, using the makeArr function as the first argument, and the trigger list as the second argument.
-
-const myForm = document.getElementById('ingredForm');
-
-
-myForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    console.log('ingredients have been submitted')
-    findTriggers(makeArr(), triggerList);
-});
- 
 
 //For later, trigger area, divided by categories, may change 
 /*
