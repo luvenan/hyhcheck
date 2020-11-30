@@ -39,39 +39,19 @@
       </div>
 
       <!-- Test area to learn how to use papa parse-->
-
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <p>Ignore this area, I'm using this to figure out how to link to a csv file so we can update the trigger list easily. -- Luisa, your coder in training. </p>
       <input type="file" id="upload-csv" accept="csv">
       <button id="btn-upload-csv"> Read </button>
       <table id="tbl-data"> </table>
-      <script type="text/javascript"> 
-        let btn_upload = document.getElementById('btn-upload-csv').addEventListener('click', ()=> {
-          console.log('clicked')
-          Papa.parse(document.getElementById('upload-csv').files[0], {
-            download: true,
-            header: false,
-            complete: function(csvfile){
-              console.log(csvfile)
-              csvfile.data.map((data, index)=> {
-                let table = document.getElementById('tbl-data');
-                generateTableHead(table, data);
-              })
-            }
-          })
-        });
 
-        function generateTableHead(table, data) {
-    let thead = table.createTHead();
-    let row = thead.insertRow();
-    for (let key of data) {
-        let th = document.createElement('th');
-        let text = document.createTextNode(key);
-        th.appendChild(text);
-        row.appendChild(th);
-    }
-}
-
+      <p id='plotcsv'></p>
     
-      </script>
 
     </main>
 
@@ -79,13 +59,7 @@
    
 <footer>
 </footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.11/jquery.csv.min.js" integrity="sha512-Y8iWYJDo6HiTo5xtml1g4QqHtl/PO1w+dmUpQfQSOTqKNsMhExfyPN2ncNAe9JuJUSKzwK/b6oaNPop4MXzkwg==" crossorigin="anonymous"></script>
-</head>
-
 <script  src="./papaparse.min.js"></script>
-<!--<script  src="./package.json"></script>
-<script  src="./package-lock.json"></script> -->
 <script  src="./Resources/main.js"></script> 
 </body>
 </html>

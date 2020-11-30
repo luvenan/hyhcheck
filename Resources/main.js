@@ -69,43 +69,50 @@ reset.onclick = function() {
 
 //This reads a csv file in javascript, turns it into an array or uses it to populate an array that will be part of the loop that will provide different answers, according to flowchart I will build. Step 1 - figure out how to import Csv here, and how to access different columns in it. Or excel sheets. Or something else. To be determined. 
 //Is this now up to date?
-
-Papa.parse('./Resources/test.csv', {
+let plotcsv = document.getElementById('plotcsv')
+let btn_upload = document.getElementById('btn-upload-csv').addEventListener('click', ()=> {
+  console.log('clicked')
+  Papa.parse(document.getElementById('upload-csv').files[0], {
     download: true,
-    header: false,
+    header: true,
     complete: function(csvfile){
       console.log(csvfile)
-      csvfile.data.map((data, index)=> {
-        let table = document.getElementById('tbl-data');
-        generateTableHead(table, data);
+      console.log(csvfile.data[0].msg);
+      
+      //Selects the property msg in each array and makes another array with only the msg items
+      let msgarray = [];
+      for (let i=0; i<csvfile.data.length; i++) {
+          msgarray.push(csvfile.data[i].msg)
+      };
+      console.log(msgarray)
+
+      // Selects the property general triggers in each array and makes another array with only the general triggers items
+      let generalarray = [];
+      for (let i=0; i<csvfile.data.length; i++) {
+          generalarray.push(csvfile.data[i].generaltriggers)
+      };
+      console.log(generalarray)
+      
+      plotcsv.innerHTML = 'msg: ' + msgarray +';' + 'general triggers: ' + generalarray + ';'
+    }
       })
+    });
+
+
+/*let csvresult = Papa.parse('./Resources/test.csv', {
+    download: true,
+    header: true,
+    complete: function(csvfile){
+      console.log(csvfile)
     }
   });
+  */
 
-function generateTableHead(table, data) {
-    let thead = table.createTHead();
-    let row = thead.insertRow();
-    for (let key of data) {
-        let th = document.createElement('th');
-        let text = document.createTextNode(key);
-        th.appendChild(text);
-        row.appendChild(th);
-    }
-}
-
-//let thefile = $.get('./Resources/test.csv', test2)
-
-
-
-/*Papa.parse(thefile, {
-    download: true,
-    header: false,
-    complete: function(csvfile){
-      console.log(csvfile)
-      }
-    });
+//Plots the csv file parsed
+/*
+let plotcsv = document.getElementById('plotcsv')
+plotcsv.innerHTML = csvresult;
 */
-
 
 //For later, trigger area, divided by categories, may change 
 /*
