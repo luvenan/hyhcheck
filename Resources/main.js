@@ -67,6 +67,27 @@ reset.onclick = function() {
 
 
 
+//This reads a csv file in javascript, turns it into an array or uses it to populate an array that will be part of the loop that will provide different answers, according to flowchart I will build. Step 1 - figure out how to import Csv here, and how to access different columns in it. Or excel sheets. Or something else. To be determined. 
+
+function test2 () {
+    console.log('I got the file')
+}
+
+
+let thefile = $.get('./Resources/test.csv', test2)
+
+
+
+/*Papa.parse(thefile, {
+    download: true,
+    header: false,
+    complete: function(csvfile){
+      console.log(csvfile)
+      }
+    });
+*/
+
+
 //For later, trigger area, divided by categories, may change 
 /*
 let msg = [];
