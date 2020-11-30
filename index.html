@@ -50,6 +50,7 @@
             download: true,
             header: false,
             complete: function(csvfile){
+              console.log(csvfile)
               csvfile.data.map((data, index)=> {
                 let table = document.getElementById('tbl-data');
                 generateTableHead(table, data);
