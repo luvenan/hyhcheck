@@ -79,8 +79,7 @@ Papa.parse('./Resources/test.csv', {
         generateTableHead(table, data);
       })
     }
-  })
-});
+  });
 
 function generateTableHead(table, data) {
     let thead = table.createTHead();
