@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "papaparse": "^5.3.0"
+    "papaparse": "^5.3.0",
+    "pluralize": "^8.0.0"
   },
   "devDependencies": {},
   "scripts": {
