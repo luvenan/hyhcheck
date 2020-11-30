@@ -69,12 +69,31 @@ reset.onclick = function() {
 
 //This reads a csv file in javascript, turns it into an array or uses it to populate an array that will be part of the loop that will provide different answers, according to flowchart I will build. Step 1 - figure out how to import Csv here, and how to access different columns in it. Or excel sheets. Or something else. To be determined. 
 
-function test2 () {
-    console.log('I got the file')
+Papa.parse('./Resources/test.csv', {
+    download: true,
+    header: false,
+    complete: function(csvfile){
+      console.log(csvfile)
+      csvfile.data.map((data, index)=> {
+        let table = document.getElementById('tbl-data');
+        generateTableHead(table, data);
+      })
+    }
+  })
+});
+
+function generateTableHead(table, data) {
+    let thead = table.createTHead();
+    let row = thead.insertRow();
+    for (let key of data) {
+        let th = document.createElement('th');
+        let text = document.createTextNode(key);
+        th.appendChild(text);
+        row.appendChild(th);
+    }
 }
 
-
-let thefile = $.get('./Resources/test.csv', test2)
+//let thefile = $.get('./Resources/test.csv', test2)
 
 
 
