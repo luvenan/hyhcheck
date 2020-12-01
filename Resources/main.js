@@ -9,6 +9,24 @@ function makeArr() {
     return arrIngred;
 };
 
+//This gives functionality to the reset button, erasing all previous values. It also creates a variable for the check button.
+
+const check = document.getElementById('checkbutton');
+const reset = document.getElementById('resetbutton');
+
+reset.onclick = function() {
+    console.log('the form has been reset')
+    let textarea = document.getElementById('textbox');
+    textarea.value = "";
+    check.hidden = false;
+    reset.hidden = true;
+    document.getElementById('safe').hidden = true;
+    document.getElementById('notsafe').hidden = true;
+    document.getElementById('notsafegen').hidden = true;
+    document.getElementById('notsafemsg').hidden = true;
+    document.getElementById('iffysafety').hidden = true;
+}
+
 
 //The three functions below make arrays out of the info on the csv file imported from the database of triggers
 
@@ -43,43 +61,7 @@ function makeArr() {
     return iffyArray;
     };
 
-//The function below reads the csv file in javascript uses it to populate the arrays. 
-
-function myMainFun(csvpath) {
-    Papa.parse(csvpath, {
-        download: true,
-        header: true,
-        complete: function(csvfile){
-        console.log(csvfile)
-            let generalArray = makeGenArr(csvfile);
-            let msgArray = makeMsgArr(csvfile);
-            let iffyArray = makeIffyArr(csvfile);
-
-            //This activates on the click of the "is it safe" button, that takes the input and loops through each array to check for triggers.
-            check.onclick = function() {
-                console.log('ingredients have been submitted')
-                findTriggers(makeArr(), generalArray, msgArray, iffyArray);
-                check.hidden = true;
-                reset.hidden = false;
-            }
-        }
-    });
-};
-
-
-//This links the creation of the array to a csv upload, but will be later removed or adapted to read the file locally, under the path: ./Resources/database.csv
-
-let csvpath = "./Resources/database.csv"
-myMainFun(csvpath);
-      
- 
-
 //This function checks for triggers. It loop through both arrays, find common items, create third array, check if any triggers. If none, say it is safe. If some, return message saying it is unsafe with trigger list, with three possible categories: general triggers, msg, and iffy ingredients.
-
-//let generalArray = ["caffeine", "lemon", "parmesan"];
-//let msgArray = ["gelatin", "hydrolized", "natural flavoring"];
-//let iffyArray = ["carob", "citric acid", "coconut"];
-
 
 function findTriggers(arrIngred, generalArray, msgArray, iffyArray) {
     let noTriggerCounter = 3;
@@ -152,28 +134,31 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray) {
     }
 };
 
+//The function below reads the csv file in javascript uses it to populate the arrays, then adds an event listener to clicking the is it safe button and gives the results. 
+
+function myMainFun(csvpath) {
+    Papa.parse(csvpath, {
+        download: true,
+        header: true,
+        complete: function(csvfile){
+        console.log(csvfile)
+            let generalArray = makeGenArr(csvfile);
+            let msgArray = makeMsgArr(csvfile);
+            let iffyArray = makeIffyArr(csvfile);
+
+            //This activates on the click of the "is it safe" button, that takes the input and loops through each array to check for triggers.
+            check.onclick = function() {
+                console.log('ingredients have been submitted')
+                findTriggers(makeArr(), generalArray, msgArray, iffyArray);
+                check.hidden = true;
+                reset.hidden = false;
+            }
+        }
+    });
+};
 
 
+//This links the creation of the array to the csv file and calls the main function to make the app run. 
 
-//This creates a variable for the button, then creates an event listener when the button is pressed, then it triggers the functions I need. In the end it changes the button to reset.
-
-
-
-
-//This gives functionality to the reset button, erasing all previous values. 
-
-const check = document.getElementById('checkbutton');
-const reset = document.getElementById('resetbutton');
-
-reset.onclick = function() {
-    console.log('the form has been reset')
-    let textarea = document.getElementById('textbox');
-    textarea.value = "";
-    check.hidden = false;
-    reset.hidden = true;
-    document.getElementById('safe').hidden = true;
-    document.getElementById('notsafe').hidden = true;
-    document.getElementById('notsafegen').hidden = true;
-    document.getElementById('notsafemsg').hidden = true;
-    document.getElementById('iffysafety').hidden = true;
-}
+let csvpath = "./Resources/database.csv"
+myMainFun(csvpath);
