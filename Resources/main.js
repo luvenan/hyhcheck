@@ -10,116 +10,155 @@ function makeArr() {
 };
 
 
-//This reads a csv file in javascript uses it to populate an array that will be part of the loop that will provide different answers, according to flowchart I will build. 
+//The three functions below make arrays out of the info on the csv file imported from the database of triggers
 
-let plotcsv = document.getElementById('plotcsv')
-let btn_upload = document.getElementById('btn-upload-csv').addEventListener('click', ()=> {
-  console.log('clicked')
-  Papa.parse(document.getElementById('upload-csv').files[0], {
-    download: true,
-    header: true,
-    complete: function(csvfile){
-     // console.log(csvfile)
-     // console.log(csvfile.data[0].MSG);
-      
-      // Selects the property general triggers in each array and makes another array with only the general triggers items
-      let generalArray = [];
-      for (let i=0; i<csvfile.data.length; i++) {
-          generalArray.push(csvfile.data[i].General)
-      };
-      console.log(generalArray)
-      
-      //Selects the property msg in each array and makes another array with only the msg items
-      let msgArray = [];
-      for (let i=0; i<csvfile.data.length; i++) {
-          msgArray.push(csvfile.data[i].MSG)
-      };
-      console.log(msgArray)
-         
-      // Selects the property iffy ingredients in each array and makes another array with only the general triggers items
-      let iffyArray = [];
-      for (let i=0; i<csvfile.data.length; i++) {
-        iffyArray.push(csvfile.data[i].Iffy)
-       };
-       console.log(iffyArray)
+// Selects the property general triggers in each array and makes another array with only the general triggers items
+     
+function makeGenArr(csvfile) {
+    let generalArray = [];
+    for (let i=0; i<csvfile.data.length; i++) {
+        generalArray.push(csvfile.data[i].General)
+    };
+    console.log(generalArray);
+    return generalArray;
+};
     
-    plotcsv.innerHTML = 'General triggers: ' + generalArray + ';' + ' Msg: ' + msgArray +';' + ' Iffy: ' + iffyArray + ';'
-  }
-    })
-  });
+    //Selects the property msg in each array and makes another array with only the msg items
+function makeMsgArr(csvfile) {
+    let msgArray = [];
+    for (let i=0; i<csvfile.data.length; i++) {
+        msgArray.push(csvfile.data[i].MSG)
+    };
+    console.log(msgArray)
+    return msgArray;
+};
+       
+    // Selects the property iffy ingredients in each array and makes another array with only the general triggers items
+function makeIffyArr(csvfile) {
+    let iffyArray = [];
+    for (let i=0; i<csvfile.data.length; i++) {
+      iffyArray.push(csvfile.data[i].Iffy)
+     };
+  console.log(iffyArray);
+  return iffyArray;
+};
+
+//The function below reads the csv file in javascript uses it to populate the arrays. 
+
+function myMainFun(csvpath) {
+    Papa.parse(csvpath, {
+        download: true,
+        header: true,
+        complete: function(csvfile){
+        console.log(csvfile)
+        let generalArray = makeGenArr(csvfile);
+        let msgArray = makeMsgArr(csvfile);
+        let iffyArray = makeIffyArr(csvfile);
+
+        //This will be followed by calling the function(s) that loops through each array and produces results, with the three above arrays as variables. 
+
+        //This is just a test
+        //let plotcsv = document.getElementById('plotcsv')
+        //plotcsv.innerHTML = 'General triggers: ' + generalArray + ';' + ' Msg: ' + msgArray +';' + ' Iffy: ' + iffyArray + ';'
+        }
+    });
+};
 
 
+//This links the creation of the array to a csv upload, but will be later removed or adapted to read the file locally, under the path: ./Resources/test2.csv
 
-/*let csvresult = Papa.parse('./Resources/test.csv', {
-    download: true,
-    header: true,
-    complete: function(csvfile){
-      console.log(csvfile)
-    }
-  });
-  */
+document.getElementById('btn-upload-csv').addEventListener('click', ()=> {
+  console.log('clicked')
+  let csvpath = document.getElementById('upload-csv').files[0]
+  let csvfile = myMainFun(csvpath);
+  console.log(csvfile);
+  return csvfile;
+});
+  
 
-
-
-
+      
+ 
 
 //This function checks for triggers. It loop through both arrays, find common items, create third array, check if any triggers. If none, say it is safe. If some, return message saying it is unsafe with trigger list.
 
-//Short trigger list to test functionality
+let generalArray = ["caffeine", "lemon", "parmesan"];
+let msgArray = ["gelatin", "hydrolized", "natural flavoring"];
+let iffyArray = ["carob", "citric acid", "coconut"];
 
 
 function findTriggers(arrIngred, generalArray, msgArray, iffyArray) {
     let noTriggerCounter = 3;
     
-    //Sample loops
-    /*
-    let triggerList = ['peanut', 'almond', 'msg', 'orange', 'soy sauce', 'banana', 'chocolate'];
-    let foundTriggers = [];
-        for (let i = 0; i < arr1.length; i++) {
-        for (let j = 0; j < arr2.length; j++) {
-            if (arr1[i] === arr2[j]) {
-                foundTriggers.push(arr1[i]);
-            };
-        };
-    };
-
-    if (foundTriggers.length === 0) {
-        document.getElementById('safe').hidden = false;
-        document.getElementById('notsafe').hidden = true;
-        console.log('this product is safe')
-    } else {
-        document.getElementById('safe').hidden = true;
-        document.getElementById('notsafe').hidden = false;
-        let stringTriggers = foundTriggers.join(', ')
-        console.log('this product has these triggers: ' + stringTriggers);
-        document.getElementById('listoftriggers').innerHTML = stringTriggers;
-    }
-    */
-
-  //If statement for general triggers
+    //If statement for general triggers
     let generalTriggers = [];
     for (let i = 0; i < arrIngred.length; i++) {
         for (let j = 0; j < generalArray.length; j++) {
-            if (arr1[i] === arr2[j]) {
+            if (arrIngred[i] === generalArray[j]) {
                 generalTriggers.push(arrIngred[i]);
             };
         };
     };
 
     if (generalTriggers.length > 0) {
-        document.getElementById('safe').hidden = true;
         document.getElementById('notsafe').hidden = false;
-        
-        //Edit on the HTML this part
+        document.getElementById('notsafegen').hidden = false;
         let stringGen = generalTriggers.join(', ')
         document.getElementById('gentriggers').innerHTML = stringGen;
     } else {
         noTriggerCounter -= 1;
+        console.log('This product has no general triggers')
         console.log(noTriggerCounter)
     }
 
+    //If statements for msg triggers
+    let msgTriggers = [];
+    for (let i = 0; i < arrIngred.length; i++) {
+        for (let j = 0; j < msgArray.length; j++) {
+            if (arrIngred[i] === msgArray[j]) {
+                msgTriggers.push(arrIngred[i]);
+            };
+        };
+    };
+
+    if (msgTriggers.length > 0) {
+        document.getElementById('notsafe').hidden = false;
+        document.getElementById('notsafemsg').hidden = false;
+        let stringMsg = msgTriggers.join(', ')
+        document.getElementById('msgtriggers').innerHTML = stringMsg + '.';
+    } else {
+        noTriggerCounter -= 1;
+        console.log('This product has no msg triggers')
+        console.log(noTriggerCounter)
+    }
+
+    //If statements for iffy ingredients
+    let iffyTriggers = [];
+    for (let i = 0; i < arrIngred.length; i++) {
+        for (let j = 0; j < iffyArray.length; j++) {
+            if (arrIngred[i] === iffyArray[j]) {
+                iffyTriggers.push(arrIngred[i]);
+            };
+        };
+    };
+
+    if (iffyTriggers.length > 0) {
+        document.getElementById('iffysafety').hidden = false;
+        let stringIffy = iffyTriggers.join(', ')
+        document.getElementById('iffytriggers').innerHTML = stringIffy + '.';
+    } else {
+        noTriggerCounter -= 1;
+        console.log('This product has no iffy triggers')
+        console.log(noTriggerCounter)
+    }
+
+    if (noTriggerCounter === 0){
+        console.log('This product is safe!')
+        document.getElementById('safe').hidden = false;
+    }
 };
 
+
+//The functions below link events to the "is it safe?" button and make the reset button functional 
 
 //This creates a variable for the button, then creates an event listener when the button is pressed, then it triggers the functions I need. In the end it changes the button to reset.
 
@@ -144,4 +183,7 @@ reset.onclick = function() {
     reset.hidden = true;
     document.getElementById('safe').hidden = true;
     document.getElementById('notsafe').hidden = true;
+    document.getElementById('notsafegen').hidden = true;
+    document.getElementById('notsafemsg').hidden = true;
+    document.getElementById('iffysafety').hidden = true;
 }
