@@ -54,6 +54,7 @@ function myMainFun(csvpath) {
         let generalArray = makeGenArr(csvfile);
         let msgArray = makeMsgArr(csvfile);
         let iffyArray = makeIffyArr(csvfile);
+        findTriggers(makeArr(), generalArray, msgArray, iffyArray);
 
         //This will be followed by calling the function(s) that loops through each array and produces results, with the three above arrays as variables. 
 
@@ -67,23 +68,24 @@ function myMainFun(csvpath) {
 
 //This links the creation of the array to a csv upload, but will be later removed or adapted to read the file locally, under the path: ./Resources/test2.csv
 
-document.getElementById('btn-upload-csv').addEventListener('click', ()=> {
+/*document.getElementById('btn-upload-csv').addEventListener('click', ()=> {
   console.log('clicked')
   let csvpath = document.getElementById('upload-csv').files[0]
   let csvfile = myMainFun(csvpath);
   console.log(csvfile);
   return csvfile;
-});
+});*/
   
+    
 
       
  
 
 //This function checks for triggers. It loop through both arrays, find common items, create third array, check if any triggers. If none, say it is safe. If some, return message saying it is unsafe with trigger list.
 
-let generalArray = ["caffeine", "lemon", "parmesan"];
-let msgArray = ["gelatin", "hydrolized", "natural flavoring"];
-let iffyArray = ["carob", "citric acid", "coconut"];
+//let generalArray = ["caffeine", "lemon", "parmesan"];
+//let msgArray = ["gelatin", "hydrolized", "natural flavoring"];
+//let iffyArray = ["carob", "citric acid", "coconut"];
 
 
 function findTriggers(arrIngred, generalArray, msgArray, iffyArray) {
@@ -166,7 +168,9 @@ const check = document.getElementById('checkbutton');
 
 check.onclick = function() {
     console.log('ingredients have been submitted')
-    findTriggers(makeArr(), generalArray, msgArray, iffyArray);
+    let csvpath = "./Resources/test2.csv"
+    myMainFun(csvpath);
+    
     check.hidden = true;
     reset.hidden = false;
 }
