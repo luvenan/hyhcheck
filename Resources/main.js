@@ -69,14 +69,6 @@ function myMainFun(csvpath) {
 
 //This links the creation of the array to a csv upload, but will be later removed or adapted to read the file locally, under the path: ./Resources/database.csv
 
-/*
-document.getElementById('btn-upload-csv').addEventListener('click', ()=> {
-  console.log('clicked')
-  let csvpath = document.getElementById('upload-csv').files[0]
-  myMainFun(csvpath);
-});
-*/
-  
 let csvpath = "./Resources/database.csv"
 myMainFun(csvpath);
       
