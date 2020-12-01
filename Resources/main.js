@@ -12,36 +12,36 @@ function makeArr() {
 
 //The three functions below make arrays out of the info on the csv file imported from the database of triggers
 
-// Selects the property general triggers in each array and makes another array with only the general triggers items
+    // Selects the property general triggers in each array and makes another array with only the general triggers items
      
-function makeGenArr(csvfile) {
-    let generalArray = [];
-    for (let i=0; i<csvfile.data.length; i++) {
-        generalArray.push(csvfile.data[i].General)
+    function makeGenArr(csvfile) {
+        let generalArray = [];
+        for (let i=0; i<csvfile.data.length; i++) {
+            generalArray.push(csvfile.data[i].General)
+        };
+        console.log(generalArray);
+        return generalArray;
     };
-    console.log(generalArray);
-    return generalArray;
-};
     
     //Selects the property msg in each array and makes another array with only the msg items
-function makeMsgArr(csvfile) {
-    let msgArray = [];
-    for (let i=0; i<csvfile.data.length; i++) {
-        msgArray.push(csvfile.data[i].MSG)
+    function makeMsgArr(csvfile) {
+        let msgArray = [];
+        for (let i=0; i<csvfile.data.length; i++) {
+            msgArray.push(csvfile.data[i].MSG)
+        };
+        console.log(msgArray)
+        return msgArray;
     };
-    console.log(msgArray)
-    return msgArray;
-};
        
     // Selects the property iffy ingredients in each array and makes another array with only the general triggers items
-function makeIffyArr(csvfile) {
-    let iffyArray = [];
-    for (let i=0; i<csvfile.data.length; i++) {
-      iffyArray.push(csvfile.data[i].Iffy)
-     };
-  console.log(iffyArray);
-  return iffyArray;
-};
+    function makeIffyArr(csvfile) {
+        let iffyArray = [];
+        for (let i=0; i<csvfile.data.length; i++) {
+        iffyArray.push(csvfile.data[i].Iffy)
+        };
+    console.log(iffyArray);
+    return iffyArray;
+    };
 
 //The function below reads the csv file in javascript uses it to populate the arrays. 
 
@@ -51,39 +51,40 @@ function myMainFun(csvpath) {
         header: true,
         complete: function(csvfile){
         console.log(csvfile)
-        let generalArray = makeGenArr(csvfile);
-        let msgArray = makeMsgArr(csvfile);
-        let iffyArray = makeIffyArr(csvfile);
+            let generalArray = makeGenArr(csvfile);
+            let msgArray = makeMsgArr(csvfile);
+            let iffyArray = makeIffyArr(csvfile);
 
-        //This will be followed by calling the function(s) that loops through each array and produces results, with the three above arrays as variables. 
-
-        //This is just a test
-        //let plotcsv = document.getElementById('plotcsv')
-        //plotcsv.innerHTML = 'General triggers: ' + generalArray + ';' + ' Msg: ' + msgArray +';' + ' Iffy: ' + iffyArray + ';'
+            //This activates on the click of the "is it safe" button, that takes the input and loops through each array to check for triggers.
+            check.onclick = function() {
+                console.log('ingredients have been submitted')
+                findTriggers(makeArr(), generalArray, msgArray, iffyArray);
+                check.hidden = true;
+                reset.hidden = false;
+            }
         }
     });
 };
 
 
-//This links the creation of the array to a csv upload, but will be later removed or adapted to read the file locally, under the path: ./Resources/test2.csv
+//This links the creation of the array to a csv upload, but will be later removed or adapted to read the file locally, under the path: ./Resources/database.csv
 
-document.getElementById('btn-upload-csv').addEventListener('click', ()=> {
+/*document.getElementById('btn-upload-csv').addEventListener('click', ()=> {
   console.log('clicked')
   let csvpath = document.getElementById('upload-csv').files[0]
-  let csvfile = Papa.parse(csvpath).data
-  console.log(csvfile);
-  return csvfile;
-});
+  myMainFun(csvpath);
+});*/
   
-
+let csvpath = "./Resources/database.csv"
+myMainFun(csvpath);
       
  
 
-//This function checks for triggers. It loop through both arrays, find common items, create third array, check if any triggers. If none, say it is safe. If some, return message saying it is unsafe with trigger list.
+//This function checks for triggers. It loop through both arrays, find common items, create third array, check if any triggers. If none, say it is safe. If some, return message saying it is unsafe with trigger list, with three possible categories: general triggers, msg, and iffy ingredients.
 
-let generalArray = ["caffeine", "lemon", "parmesan"];
-let msgArray = ["gelatin", "hydrolized", "natural flavoring"];
-let iffyArray = ["carob", "citric acid", "coconut"];
+//let generalArray = ["caffeine", "lemon", "parmesan"];
+//let msgArray = ["gelatin", "hydrolized", "natural flavoring"];
+//let iffyArray = ["carob", "citric acid", "coconut"];
 
 
 function findTriggers(arrIngred, generalArray, msgArray, iffyArray) {
@@ -158,21 +159,16 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray) {
 };
 
 
-//The functions below link events to the "is it safe?" button and make the reset button functional 
+
 
 //This creates a variable for the button, then creates an event listener when the button is pressed, then it triggers the functions I need. In the end it changes the button to reset.
 
+
+
+
+//This gives functionality to the reset button, erasing all previous values. 
+
 const check = document.getElementById('checkbutton');
-
-check.onclick = function() {
-    console.log('ingredients have been submitted')
-    findTriggers(makeArr(), generalArray, msgArray, iffyArray);
-    check.hidden = true;
-    reset.hidden = false;
-}
-
-//This creates a variable, then an event listener, then resets the values in the textform which should reset the textbox and the results that appeared at first.
-
 const reset = document.getElementById('resetbutton');
 
 reset.onclick = function() {

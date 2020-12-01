@@ -19,13 +19,20 @@
       <br>
       <p>This website was created to make it easier to determine if a particular food is or is not compliant with the hyh diet. Simply type or paste the ingredients in the box below, and click on the buttom "is it safe?" </p>
       <br>
-      <p> This is a prototype, the only triggers currently programmed are: peanut, almond, msg, orange, soy sauce, banana, and chocolate.</p>
+      <p> This is a prototype, the only triggers currently programmed are: </p>
+        <ul>
+          <li>General triggers: caffeine, lemon, parmesan;</li> 
+          <li>MSG: gelatin, hydrolized, natural flavor;</li>
+          <li>Iffy ingredients: carob, citric acid, coconut;</li>
+        </ul>
+      <br>
+      <br>
       
 
       <!--Code the input area here-->
 
       <form id='ingredForm'>
-        <textarea id='textbox' name='ingredList' rows='20' cols='80' placeholder="Type or paste the ingredients here, separated by a comma and one space. Eg: banana, apple, peanut." required></textarea>
+        <textarea id='textbox' name='ingredList' rows='15' cols='60' placeholder="Type or paste the ingredients here, separated by a comma and one space. Eg: banana, apple, peanut." required></textarea>
       </form> 
       <br>  
         <button id='checkbutton'>Is it safe?</button>
@@ -42,7 +49,7 @@
       </div>
 
       <!-- Test area to learn how to use papa parse-->
-      <br>
+      <!--<br>
       <br>
       <br>
       <br>
@@ -54,7 +61,7 @@
       <table id="tbl-data"> </table>
 
       <p id='plotcsv'></p>
-    
+      -->
 
     </main>
 

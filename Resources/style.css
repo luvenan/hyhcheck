@@ -7,7 +7,11 @@ html {
 
 body {
     text-align: center;
-    margin: 50px 200px;
+    margin: 50px 400px;
+}
+
+header {
+    padding: 20px;
 }
 
 h1 {
@@ -28,4 +32,8 @@ p {
 h2 {
     font-family: 'Open Sans', sans serif;
     font-size: 20px;
+}
+
+ul {
+    text-align: left;
 }
