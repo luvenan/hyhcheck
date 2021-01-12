@@ -2,9 +2,9 @@
 
 
 //This is how the pluralize plugin works to turn words into singular. This means that I will need to add to all the exceptions on the list in order to trigger a match each time. Otherwise, it should be fine. I should add it to the code right now, and then add the exceptions as I find them. 
-pluralize.addSingularRule(/avocadoes$/i, 'avocado')
+/*pluralize.addSingularRule(/avocadoes$/i, 'avocado')
 let testarray = ['peanuts', 'avocadoes', 'bananas'];
-console.log(testarray.map(x => pluralize.singular(x)))
+console.log(testarray.map(x => pluralize.singular(x)))*/
 
 //This function turns everything lower case, turns the input into an array of triggers, dividing up by ', ', then turns them into singular (with possible mistakes for irregular plurals) 
 
