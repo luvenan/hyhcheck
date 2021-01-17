@@ -12,6 +12,9 @@ function makeArr() {
     let ingredients = document.getElementById('textbox').value;
     let ingredlower = ingredients.toLowerCase();
     let splitArr = ingredlower.split(', ');
+    pluralize.addSingularRule(/avocadoes$/i, 'avocado')
+    pluralize.addSingularRule(/molasses$/i, 'molasses')
+    pluralize.addSingularRule(/raspberries$/i, 'raspberry')
     let arrIngred = splitArr.map(x => pluralize.singular(x));
     return arrIngred;
 };
@@ -35,9 +38,9 @@ reset.onclick = function() {
 }
 
 
-//The three functions below make arrays out of the info on the csv file imported from the database of triggers
+//The six functions below make arrays out of the info on the csv file imported from the database of triggers
 
-    // Selects the property general triggers in each array and makes another array with only the general triggers items
+    // Selects the property General in each array and makes another array with only the general triggers items
      
     function makeGenArr(csvfile) {
         let generalArray = [];
@@ -47,8 +50,9 @@ reset.onclick = function() {
         console.log(generalArray);
         return generalArray;
     };
+
     
-    //Selects the property msg in each array and makes another array with only the msg items
+    //Selects the property MSG in each array and makes another array with only the msg items
     function makeMsgArr(csvfile) {
         let msgArray = [];
         for (let i=0; i<csvfile.data.length; i++) {
@@ -58,7 +62,7 @@ reset.onclick = function() {
         return msgArray;
     };
        
-    // Selects the property iffy ingredients in each array and makes another array with only the general triggers items
+    // Selects the property Iffy in each array and makes another array with only the iffy triggers items
     function makeIffyArr(csvfile) {
         let iffyArray = [];
         for (let i=0; i<csvfile.data.length; i++) {
@@ -68,6 +72,40 @@ reset.onclick = function() {
     return iffyArray;
     };
 
+// Selects the property containsGeneral triggers in each array and makes another array with only the keywords that if part of an ingredient name, then that ingredient is a general trigger
+
+function makeContainsGenArr(csvfile) {
+    let containsGeneralArray = [];
+    for (let i=0; i<csvfile.data.length; i++) {
+        containsGeneralArray.push(csvfile.data[i].ContainsGeneral)
+    };
+    console.log(containsGeneralArray);
+    return containsGeneralArray;
+};
+
+// Selects the property containsMSG triggers in each array and makes another array with only the keywords that if part of an ingredient name, then that ingredient is an msg trigger
+
+function makeContainsMSGArr(csvfile) {
+    let containsMSGArray = [];
+    for (let i=0; i<csvfile.data.length; i++) {
+        containsMSGArray.push(csvfile.data[i].ContainsMSG)
+    };
+    console.log(containsMSGArray);
+    return containsMSGArray;
+};
+
+// Selects the property containsIffy triggers in each array and makes another array with only the keywords that if part of an ingredient name, then that ingredient is an Iffy trigger
+
+function makeContainsIffyArr(csvfile) {
+    let containsIffyArray = [];
+    for (let i=0; i<csvfile.data.length; i++) {
+        containsIffyArray.push(csvfile.data[i].ContainsIffy)
+    };
+    console.log(containsMSGArray);
+    return containsIffyArray;
+};
+
+ 
 //This function checks for triggers. It loop through both arrays, find common items, create third array, check if any triggers. If none, say it is safe. If some, return message saying it is unsafe with trigger list, with three possible categories: general triggers, msg, and iffy ingredients.
 
 function findTriggers(arrIngred, generalArray, msgArray, iffyArray) {
@@ -78,6 +116,13 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray) {
     for (let i = 0; i < arrIngred.length; i++) {
         for (let j = 0; j < generalArray.length; j++) {
             if (arrIngred[i] === generalArray[j]) {
+                generalTriggers.push(arrIngred[i]);
+            };
+        };
+    };    
+    for (let i = 0; i < arrIngred.length; i++) {
+        for (let j = 0; j < containsGeneralArray.length; j++) {
+            if (arrIngred[i].indexOf(containsGeneralArray[j]) !== -1) {
                 generalTriggers.push(arrIngred[i]);
             };
         };
@@ -103,6 +148,14 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray) {
             };
         };
     };
+    for (let i = 0; i < arrIngred.length; i++) {
+        for (let j = 0; j < containsMSGArray.length; j++) {
+            if (arrIngred[i].indexOf(containsMSGArray[j]) !== -1) {
+                msgTriggers.push(arrIngred[i]);
+            };
+        };
+    };
+
 
     if (msgTriggers.length > 0) {
         document.getElementById('notsafe').hidden = false;
@@ -120,6 +173,14 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray) {
     for (let i = 0; i < arrIngred.length; i++) {
         for (let j = 0; j < iffyArray.length; j++) {
             if (arrIngred[i] === iffyArray[j]) {
+                iffyTriggers.push(arrIngred[i]);
+            };
+        };
+    };
+
+    for (let i = 0; i < arrIngred.length; i++) {
+        for (let j = 0; j < containsIffyArray.length; j++) {
+            if (arrIngred[i].indexOf(containsIffyArray[j]) !== -1) {
                 iffyTriggers.push(arrIngred[i]);
             };
         };
