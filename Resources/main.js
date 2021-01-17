@@ -108,7 +108,7 @@ function makeContainsIffyArr(csvfile) {
  
 //This function checks for triggers. It loop through both arrays, find common items, create third array, check if any triggers. If none, say it is safe. If some, return message saying it is unsafe with trigger list, with three possible categories: general triggers, msg, and iffy ingredients.
 
-function findTriggers(arrIngred, generalArray, msgArray, iffyArray) {
+function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGeneralArray,  containsMSGArray, containsIffyArray) {
     let noTriggerCounter = 3;
     
     //If statement for general triggers
@@ -213,11 +213,14 @@ function myMainFun(csvpath) {
             let generalArray = makeGenArr(csvfile);
             let msgArray = makeMsgArr(csvfile);
             let iffyArray = makeIffyArr(csvfile);
+            let containsGeneralArray = makeContainsGenArr(csvfile);
+            let containsMSGArray = makeContainsMSGArr(csvfile);
+            let containsIffyArray = makeContainsIffyArr(csvfile);
 
             //This activates on the click of the "is it safe" button, that takes the input and loops through each array to check for triggers.
             check.onclick = function() {
                 console.log('ingredients have been submitted')
-                findTriggers(makeArr(), generalArray, msgArray, iffyArray);
+                findTriggers(makeArr(), generalArray, msgArray, iffyArray, containsGeneralArray, containsMSGArray, containsIffyArray);
                 check.hidden = true;
                 reset.hidden = false;
             }
