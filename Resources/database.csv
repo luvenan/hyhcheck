@@ -1,94 +1,103 @@
-General,MSG,Iffy,ContainsGeneral,ContainsMSG,ContainsIffy
-alcohol,accent,apple,nut,autolyzed,gum
-almond,ajinomoto,carob,pickled,broth
-apple cider vinegar,autolyzed,citric acid,smoked,cultured
-aspartame,broth,citrus,tea,malted
-avocado,bouillion,citrus extractfermented
-bacon,calcium caseinate,citrus flavoring hydrolyzed
-balsamic vinegar,carrageenan,citrus flavouring
-banana,cultured,coconut
-beef jerky,dissodium guanylate,grapefruit extract
-champagne,malt,guar gum 
-blue cheese,dissodium inosinate,lemon extract
-chestnut,malted,molasses
-bologna,fermented,mushroom
-brazil nut,gelatin,orange extract
-broad italian bean,glutamate,seasoning
-cheddar,malt extract,soy lecithin
-buttermilk,glutamic acid,spice
-caffeine,hydrolyzed,tomato
-cashew,kombu extract,xathan gum
-chocolate,maltodextrin
-citrus extract,monosodium glutamate
-clementine,msg
-cocoa extract,natural flavor
-coffee,natural flavoring
-creme fraiche,natural flavour
-date,natural flavouring
-dried fruit,nutritional yeast
-fava bean,pea protein
-feta,seaweed extract
-fig,sodium caseinate
-filbert,soy concentrate
-gouda,soy isolate
-grapefruit,soy protein
-ham,soy sauce
-hazelnut,stock
-hickory nut,umami
-hot dog,vegetable protein
-kefir,whey concentrate
-kimchi,whey isolate
-lemon,whey protein
-lentil,yeast extract
-lima bean,yeast food
-lime,malted barley
-live active culture
-live culture
-liverwurst
-lunch meat
-macademia
-manchego
-miso
-navy bean
-nutrasweet
-nut
-onion
-orange
-papaya
-parmesan
-passion fruit
-pate
-pea pod
-peanut
-pecan
-pepperoni
-pickled
-pickled fish
-pickled hering
-pinapple
-pine
-pistachio
-raisin
-raspberry
-red plum
-red vinegar
-salami
-sauerkraut
-sausage
-smoked
-smoked meat
-smoked mozzarella
-smoked salmon
-smoked tuna
-sour cream
-sourdough
-soy flour
-soy milk
-swiss cheese
-tangerine
-tea
-tempeh
-tofu
-walnut
-wine
-yogurt
+General,MSG,Iffy,ContainsGeneral,ContainsMSG,ContainsIffy,SpecialCases
+alcohol,accent,acacia gum,macademia,autolyzed,gum,tea
+almond,agar,apple,nut,broth,spice,coffee
+apple cider vinegar,ajinomoto,arabic gum ,peanut,cultured,mushroom,cheddar
+aspartame,alginate,carob,pickled,fermented,coconut,
+avocado,autolyzed,carob bean gum,pistachio,hydrolyzed,,
+bacon,bouillion,citric acid,smoked,malted,,
+balsamic vinegar,broth,citrus,yogurt,flavor,,
+banana,calcium caseinate,citrus extract,appenzeller,flavour,,
+beef jerky,carrageenan,citrus flavoring ,asiago,flavoring,,
+black tea,,citrus flavouring,,flavouring,,
+blue cheese,cultured,coconut,,yeast,,
+bologna,dissodium guanylate,gellan gum,,,,
+brazil nut,dissodium inosinate,grapefruit extract,,,,
+broad italian bean,fermented,guar gum ,,,,
+buttermilk,gelatin,gum arabic,,,,
+caffeine,glutamate,konjac gum,,,,
+cashew,glutamic acid,lemon extract,,,,
+champagne,hydrolyzed,molasses,,,,
+cheddar,kombu extract,mushroom,,,,
+chestnut,malt,orange extract,,,,
+chocolate,malt extract,seasoning,,,,
+clementine,malted,soy lecithin,,,,
+cocoa extract,malted barley,spice,,,,
+creme fraiche,maltodextrin,tomato,,,,
+date,monosodium glutamate,xathan gum,,,,
+dried fruit,msg,,,,,
+fava bean,natural flavor,,,,,
+feta,natural flavoring,,,,,
+fig,natural flavour,,,,,
+filbert,natural flavouring,,,,,
+gouda,nutritional yeast,,,,,
+grapefruit,pea protein,,,,,
+green tea,seaweed extract,,,,,
+ham,,,,,,
+hazelnut,sodium caseinate,,,,,
+hickory nut,soy concentrate,,,,,
+hot dog,soy isolate,,,,,
+kefir,soy protein,,,,,
+kimchi,soy sauce,,,,,
+lemon,stock,,,,,
+lentil,umami,,,,,
+lima bean,vegetable protein,,,,,
+lime,whey concentrate,,,,,
+live active culture,whey isolate,,,,,
+live culture,whey protein,,,,,
+liverwurst,yeast extract,,,,,
+lunch meat,yeast food,,,,,
+macademia,,,,,,
+manchego,,,,,,
+miso,,,,,,
+navy bean,,,,,,
+nut,,,,,,
+nutrasweet,,,,,,
+onion,,,,,,
+orange,,,,,,
+papaya,,,,,,
+parmesan,,,,,,
+passion fruit,,,,,,
+pate,,,,,,
+pea pod,,,,,,
+peanut,,,,,,
+pecan,,,,,,
+pepperoni,,,,,,
+pickled,,,,,,
+pickled fish,,,,,,
+pickled hering,,,,,,
+pinapple,,,,,,
+pine,,,,,,
+pistachio,,,,,,
+raisin,,,,,,
+raspberry,,,,,,
+red plum,,,,,,
+red vinegar,,,,,,
+red wine,,,,,,
+salami,,,,,,
+sauerkraut,,,,,,
+sausage,,,,,,
+smoked,,,,,,
+smoked meat,,,,,,
+smoked mozzarella,,,,,,
+smoked salmon,,,,,,
+smoked tuna,,,,,,
+sour cream,,,,,,
+sourdough,,,,,,
+soy flour,,,,,,
+soy milk,,,,,,
+swiss cheese,,,,,,
+tangerine,,,,,,
+tempeh,,,,,,
+tofu,,,,,,
+walnut,,,,,,
+white tea,,,,,,
+white wine,,,,,,
+wine,,,,,,
+yogurt,,,,,,
+appenzeller,,,,,,
+caciocavallo,,,,,,
+cheddar medium,,,,,,
+cheddar sharp,,,,,,
+cheddar extra sharp,,,,,,
+cheddar aged,,,,,,
+caciocavallo aged,,,,,,

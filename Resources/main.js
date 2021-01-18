@@ -2,12 +2,6 @@
 
 
 
-//How to remove duplicates from arrays
-
-/*let randomletters = ['a', 'b', 'b', 'c']
-randomletters = randomletters.filter((v,i) => randomletters.indexOf(v) === i)
-console.log(randomletters)
-*/
 
 //This function turns everything lower case, turns the input into an array of triggers, dividing up by ', ', then turns them into singular (with possible mistakes for irregular plurals) 
 
@@ -39,6 +33,8 @@ reset.onclick = function() {
     document.getElementById('notsafegen').hidden = true;
     document.getElementById('notsafemsg').hidden = true;
     document.getElementById('iffysafety').hidden = true;
+    document.getElementById('teaexception').hidden = true;
+    document.getElementById('coffeeexception').hidden = true; 
 }
 
 
@@ -119,7 +115,7 @@ function makeContainsIffyArr(csvfile) {
 //This function checks for triggers. It loop through both arrays, find common items, create third array, check if any triggers. If none, say it is safe. If some, return message saying it is unsafe with trigger list, with three possible categories: general triggers, msg, and iffy ingredients.
 
 function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGeneralArray, containsMSGArray, containsIffyArray) {
-    let noTriggerCounter = 3;
+    let noTriggerCounter = 5;
     
     //If statement for general triggers
     let generalTriggers = [];
@@ -132,13 +128,14 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGene
     };    
     for (let i = 0; i < arrIngred.length; i++) {
         for (let j = 0; j < containsGeneralArray.length; j++) {
-            if (arrIngred[i].indexOf(containsGeneralArray[j]) !== -1 && arrIngred[i] !== 'nutmeg' ) {
+            if (arrIngred[i].indexOf(containsGeneralArray[j]) !== -1 && arrIngred[i] !== 'nutmeg' && arrIngred[i].indexOf('coconut') === -1 ) {
                 generalTriggers.push(arrIngred[i]);
             };
         };
     };
 
     if (generalTriggers.length > 0) {
+        //removes duplicate values in the array
         generalTriggers = generalTriggers.filter((a,b) => generalTriggers.indexOf(a) === b)
         document.getElementById('notsafe').hidden = false;
         document.getElementById('notsafegen').hidden = false;
@@ -149,6 +146,8 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGene
         console.log('This product has no general triggers')
         console.log(noTriggerCounter)
     }
+
+    
 
     //If statements for msg triggers
     let msgTriggers = [];
@@ -169,6 +168,7 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGene
 
 
     if (msgTriggers.length > 0) {
+        //removes duplicate values in the array
         msgTriggers = msgTriggers.filter((a,b) => msgTriggers.indexOf(a) === b)
         document.getElementById('notsafe').hidden = false;
         document.getElementById('notsafemsg').hidden = false;
@@ -199,6 +199,7 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGene
     };
 
     if (iffyTriggers.length > 0) {
+        //removes duplicate values in the array
         iffyTriggers = iffyTriggers.filter((a,b) => iffyTriggers.indexOf(a) === b)
         document.getElementById('iffysafety').hidden = false;
         let stringIffy = iffyTriggers.join(', ')
@@ -209,7 +210,30 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGene
         console.log(noTriggerCounter)
     }
     
-    
+    //Adds the tea exception
+    for (let i = 0; i < arrIngred.length; i++) {
+        if (arrIngred[i].indexOf('tea') !== -1) {
+        document.getElementById('teaexception').hidden = false;   
+        } else {
+        noTriggerCounter -= 1;
+        console.log('This product has no tea')
+        console.log(noTriggerCounter)
+        }
+    };
+
+     //Adds the coffee exception
+     for (let i = 0; i < arrIngred.length; i++) {
+        if (arrIngred[i].indexOf('coffee') !== -1) {
+        document.getElementById('coffeeexception').hidden = false;   
+        } else {
+        noTriggerCounter -= 1;
+        console.log('This product has no coffee')
+        console.log(noTriggerCounter)
+        }
+    };
+
+
+
     //If all ingredient checks come out negative, then the product is safe. This releases the safe message.
     if (noTriggerCounter === 0){
         console.log('This product is safe!')
