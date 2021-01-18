@@ -117,7 +117,7 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGene
     };    
     for (let i = 0; i < arrIngred.length; i++) {
         for (let j = 0; j < containsGeneralArray.length; j++) {
-            if (arrIngred[i].indexOf(containsGeneralArray[j]) !== -1) {
+            if (arrIngred[i].indexOf(containsGeneralArray[j]) !== -1 && arrIngred[i] !== 'nutmeg' ) {
                 generalTriggers.push(arrIngred[i]);
             };
         };
