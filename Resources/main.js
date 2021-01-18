@@ -1,17 +1,12 @@
 //JS code for the HYH checker
 
-
-//This is how the pluralize plugin works to turn words into singular. This means that I will need to add to all the exceptions on the list in order to trigger a match each time. Otherwise, it should be fine. I should add it to the code right now, and then add the exceptions as I find them. 
-/*pluralize.addSingularRule(/avocadoes$/i, 'avocado')
-let testarray = ['peanuts', 'avocadoes', 'bananas'];
-console.log(testarray.map(x => pluralize.singular(x)))*/
-
 //This function turns everything lower case, turns the input into an array of triggers, dividing up by ', ', then turns them into singular (with possible mistakes for irregular plurals) 
 
 function makeArr() {
     let ingredients = document.getElementById('textbox').value;
     let ingredlower = ingredients.toLowerCase();
     let splitArr = ingredlower.split(', ');
+    //Adds exceptions to non-standard plurals so that when I make them singular, this will be done correctly
     pluralize.addSingularRule(/avocadoes$/i, 'avocado')
     pluralize.addSingularRule(/molasses$/i, 'molasses')
     pluralize.addSingularRule(/raspberries$/i, 'raspberry')
@@ -101,14 +96,14 @@ function makeContainsIffyArr(csvfile) {
     for (let i=0; i<csvfile.data.length; i++) {
         containsIffyArray.push(csvfile.data[i].ContainsIffy)
     };
-    console.log(containsMSGArray);
+    console.log(containsIffyArray);
     return containsIffyArray;
 };
 
  
 //This function checks for triggers. It loop through both arrays, find common items, create third array, check if any triggers. If none, say it is safe. If some, return message saying it is unsafe with trigger list, with three possible categories: general triggers, msg, and iffy ingredients.
 
-function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGeneralArray,  containsMSGArray, containsIffyArray) {
+function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGeneralArray, containsMSGArray, containsIffyArray) {
     let noTriggerCounter = 3;
     
     //If statement for general triggers
@@ -208,18 +203,24 @@ function myMainFun(csvpath) {
     Papa.parse(csvpath, {
         download: true,
         header: true,
-        complete: function(csvfile){
-        console.log(csvfile)
+        complete: function (csvfile) {
+            console.log(csvfile);
             let generalArray = makeGenArr(csvfile);
+            //console.log(generalArray);
             let msgArray = makeMsgArr(csvfile);
+            //console.log(msgArray);
             let iffyArray = makeIffyArr(csvfile);
+            //console.log(iffyArray);
             let containsGeneralArray = makeContainsGenArr(csvfile);
+            //console.log(containsGeneralArray);
             let containsMSGArray = makeContainsMSGArr(csvfile);
+            //console.log(containsMSGArray);
             let containsIffyArray = makeContainsIffyArr(csvfile);
-
+            //console.log(containsIffyArray);
+                
             //This activates on the click of the "is it safe" button, that takes the input and loops through each array to check for triggers.
-            check.onclick = function() {
-                console.log('ingredients have been submitted')
+            check.onclick = function () {
+                console.log('ingredients have been submitted');
                 findTriggers(makeArr(), generalArray, msgArray, iffyArray, containsGeneralArray, containsMSGArray, containsIffyArray);
                 check.hidden = true;
                 reset.hidden = false;
@@ -233,3 +234,36 @@ function myMainFun(csvpath) {
 
 let csvpath = "./Resources/database.csv"
 myMainFun(csvpath);
+
+
+//This is a testing tool, allowing me to upload the csv file directly from my desktop computer without uploading everything to github
+//let csvpath = document.getElementById('upload-csv').files[0]
+let btn_upload = document.getElementById("btn-upload-csv").addEventListener('click', function () {
+        Papa.parse(document.getElementById('upload-csv').files[0], {
+            download: true,
+            header: true,
+            complete: function (csvfile) {
+                console.log(csvfile);
+                let generalArray = makeGenArr(csvfile);
+                //console.log(generalArray);
+                let msgArray = makeMsgArr(csvfile);
+                //console.log(msgArray);
+                let iffyArray = makeIffyArr(csvfile);
+                //console.log(iffyArray);
+                let containsGeneralArray = makeContainsGenArr(csvfile);
+                //console.log(containsGeneralArray);
+                let containsMSGArray = makeContainsMSGArr(csvfile);
+                //console.log(containsMSGArray);
+                let containsIffyArray = makeContainsIffyArr(csvfile);
+                //console.log(containsIffyArray);
+                
+                //This activates on the click of the "is it safe" button, that takes the input and loops through each array to check for triggers.
+                check.onclick = function () {
+                    console.log('ingredients have been submitted');
+                    findTriggers(makeArr(), generalArray, msgArray, iffyArray, containsGeneralArray, containsMSGArray, containsIffyArray);
+                    check.hidden = true;
+                    reset.hidden = false;
+                }
+            }
+        })
+})
