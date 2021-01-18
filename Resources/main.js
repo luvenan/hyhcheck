@@ -1,5 +1,14 @@
 //JS code for the HYH checker
 
+
+
+//How to remove duplicates from arrays
+
+/*let randomletters = ['a', 'b', 'b', 'c']
+randomletters = randomletters.filter((v,i) => randomletters.indexOf(v) === i)
+console.log(randomletters)
+*/
+
 //This function turns everything lower case, turns the input into an array of triggers, dividing up by ', ', then turns them into singular (with possible mistakes for irregular plurals) 
 
 function makeArr() {
@@ -42,6 +51,7 @@ reset.onclick = function() {
         for (let i=0; i<csvfile.data.length; i++) {
             generalArray.push(csvfile.data[i].General)
         };
+        generalArray = generalArray.filter( Boolean );
         console.log(generalArray);
         return generalArray;
     };
@@ -53,6 +63,7 @@ reset.onclick = function() {
         for (let i=0; i<csvfile.data.length; i++) {
             msgArray.push(csvfile.data[i].MSG)
         };
+        msgArray = msgArray.filter( Boolean );
         console.log(msgArray)
         return msgArray;
     };
@@ -63,8 +74,9 @@ reset.onclick = function() {
         for (let i=0; i<csvfile.data.length; i++) {
         iffyArray.push(csvfile.data[i].Iffy)
         };
-    console.log(iffyArray);
-    return iffyArray;
+        iffyArray = iffyArray.filter( Boolean );
+        console.log(iffyArray);
+        return iffyArray;
     };
 
 // Selects the property containsGeneral triggers in each array and makes another array with only the keywords that if part of an ingredient name, then that ingredient is a general trigger
@@ -127,6 +139,7 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGene
     };
 
     if (generalTriggers.length > 0) {
+        generalTriggers = generalTriggers.filter((a,b) => generalTriggers.indexOf(a) === b)
         document.getElementById('notsafe').hidden = false;
         document.getElementById('notsafegen').hidden = false;
         let stringGen = generalTriggers.join(', ')
@@ -156,6 +169,7 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGene
 
 
     if (msgTriggers.length > 0) {
+        msgTriggers = msgTriggers.filter((a,b) => msgTriggers.indexOf(a) === b)
         document.getElementById('notsafe').hidden = false;
         document.getElementById('notsafemsg').hidden = false;
         let stringMsg = msgTriggers.join(', ')
@@ -185,6 +199,7 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGene
     };
 
     if (iffyTriggers.length > 0) {
+        iffyTriggers = iffyTriggers.filter((a,b) => iffyTriggers.indexOf(a) === b)
         document.getElementById('iffysafety').hidden = false;
         let stringIffy = iffyTriggers.join(', ')
         document.getElementById('iffytriggers').innerHTML = stringIffy + '.';
@@ -193,7 +208,9 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGene
         console.log('This product has no iffy triggers')
         console.log(noTriggerCounter)
     }
-
+    
+    
+    //If all ingredient checks come out negative, then the product is safe. This releases the safe message.
     if (noTriggerCounter === 0){
         console.log('This product is safe!')
         document.getElementById('safe').hidden = false;
@@ -241,7 +258,7 @@ myMainFun(csvpath);
 
 //This is a testing tool, allowing me to upload the csv file directly from my desktop computer without uploading everything to github
 //let csvpath = document.getElementById('upload-csv').files[0]
-/*let btn_upload = document.getElementById("btn-upload-csv").addEventListener('click', function () {
+let btn_upload = document.getElementById("btn-upload-csv").addEventListener('click', function () {
         Papa.parse(document.getElementById('upload-csv').files[0], {
             download: true,
             header: true,
@@ -269,4 +286,4 @@ myMainFun(csvpath);
                 }
             }
         })
-})*/
+})
