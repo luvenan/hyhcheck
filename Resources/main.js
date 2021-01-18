@@ -74,6 +74,7 @@ function makeContainsGenArr(csvfile) {
     for (let i=0; i<csvfile.data.length; i++) {
         containsGeneralArray.push(csvfile.data[i].ContainsGeneral)
     };
+    containsGeneralArray = containsGeneralArray.filter( Boolean );
     console.log(containsGeneralArray);
     return containsGeneralArray;
 };
@@ -85,6 +86,7 @@ function makeContainsMSGArr(csvfile) {
     for (let i=0; i<csvfile.data.length; i++) {
         containsMSGArray.push(csvfile.data[i].ContainsMSG)
     };
+    containsMSGArray = containsMSGArray.filter( Boolean );
     console.log(containsMSGArray);
     return containsMSGArray;
 };
@@ -96,6 +98,7 @@ function makeContainsIffyArr(csvfile) {
     for (let i=0; i<csvfile.data.length; i++) {
         containsIffyArray.push(csvfile.data[i].ContainsIffy)
     };
+    containsIffyArray = containsIffyArray.filter( Boolean );
     console.log(containsIffyArray);
     return containsIffyArray;
 };
@@ -238,7 +241,7 @@ myMainFun(csvpath);
 
 //This is a testing tool, allowing me to upload the csv file directly from my desktop computer without uploading everything to github
 //let csvpath = document.getElementById('upload-csv').files[0]
-let btn_upload = document.getElementById("btn-upload-csv").addEventListener('click', function () {
+/*let btn_upload = document.getElementById("btn-upload-csv").addEventListener('click', function () {
         Papa.parse(document.getElementById('upload-csv').files[0], {
             download: true,
             header: true,
@@ -266,4 +269,4 @@ let btn_upload = document.getElementById("btn-upload-csv").addEventListener('cli
                 }
             }
         })
-})
+})*/
