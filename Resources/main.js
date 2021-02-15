@@ -17,26 +17,6 @@ function makeArr() {
     return arrIngred;
 };
 
-//This gives functionality to the reset button, erasing all previous values. It also creates a variable for the check button.
-
-const check = document.getElementById('checkbutton');
-const reset = document.getElementById('resetbutton');
-
-reset.onclick = function() {
-    console.log('the form has been reset')
-    let textarea = document.getElementById('textbox');
-    textarea.value = "";
-    check.hidden = false;
-    reset.hidden = true;
-    document.getElementById('safe').hidden = true;
-    document.getElementById('notsafe').hidden = true;
-    document.getElementById('notsafegen').hidden = true;
-    document.getElementById('notsafemsg').hidden = true;
-    document.getElementById('iffysafety').hidden = true;
-    document.getElementById('teaexception').hidden = true;
-    document.getElementById('coffeeexception').hidden = true; 
-}
-
 
 //The six functions below make arrays out of the info on the csv file imported from the database of triggers
 
@@ -128,7 +108,7 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGene
     };    
     for (let i = 0; i < arrIngred.length; i++) {
         for (let j = 0; j < containsGeneralArray.length; j++) {
-            if (arrIngred[i].indexOf(containsGeneralArray[j]) !== -1 && arrIngred[i] !== 'nutmeg' && arrIngred[i].indexOf('coconut') === -1 ) {
+            if (arrIngred[i].indexOf(containsGeneralArray[j]) !== -1 && arrIngred[i].indexOf('nutmeg') === -1 && arrIngred[i].indexOf('coconut') === -1 && arrIngred[i].indexOf('butternut') === -1) {
                 generalTriggers.push(arrIngred[i]);
             };
         };
@@ -241,7 +221,26 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGene
     }
 };
 
-//The function below reads the csv file in javascript uses it to populate the arrays, then adds an event listener to clicking the is it safe button and gives the results. 
+//This adds a variable to the "Is it safe" button
+const check = document.getElementById('checkbutton');
+
+//This function clears the results when a new value is submitted
+
+function clearresults() {
+    console.log('the form has been reset')
+    //let textarea = document.getElementById('textbox');
+    //textarea.value = "";
+    document.getElementById('safe').hidden = true;
+    document.getElementById('notsafe').hidden = true;
+    document.getElementById('notsafegen').hidden = true;
+    document.getElementById('notsafemsg').hidden = true;
+    document.getElementById('iffysafety').hidden = true;
+    document.getElementById('teaexception').hidden = true;
+    document.getElementById('coffeeexception').hidden = true; 
+}
+
+
+//The function below reads the csv file in javascript uses it to populate the arrays, then adds an event listener to clicking the is it safe button and gives the results.
 
 function myMainFun(csvpath) {
     Papa.parse(csvpath, {
@@ -264,10 +263,9 @@ function myMainFun(csvpath) {
                 
             //This activates on the click of the "is it safe" button, that takes the input and loops through each array to check for triggers.
             check.onclick = function () {
+                clearresults();
                 console.log('ingredients have been submitted');
                 findTriggers(makeArr(), generalArray, msgArray, iffyArray, containsGeneralArray, containsMSGArray, containsIffyArray);
-                check.hidden = true;
-                reset.hidden = false;
             }
         }
     });
@@ -303,10 +301,9 @@ let btn_upload = document.getElementById("btn-upload-csv").addEventListener('cli
                 
                 //This activates on the click of the "is it safe" button, that takes the input and loops through each array to check for triggers.
                 check.onclick = function () {
+                    clearresults();
                     console.log('ingredients have been submitted');
                     findTriggers(makeArr(), generalArray, msgArray, iffyArray, containsGeneralArray, containsMSGArray, containsIffyArray);
-                    check.hidden = true;
-                    reset.hidden = false;
                 }
             }
         })
