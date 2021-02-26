@@ -1,4 +1,4 @@
-/* fonts: playfair (40px) and open sans(17px). Background white. Color of paragerpah is #464646, while that of title is #030303. Button with purple outline #6A3BAF size 13px, open sans, all caps*/
+/* fonts: playfair (40px) and open sans(17px). Background white. Color of paragraph is #464646, while that of title is #030303. Button with purple outline #6A3BAF size 13px, open sans, all caps*/
 
 html {
     font-size: 17px;
@@ -7,33 +7,128 @@ html {
 
 body {
     text-align: center;
-    margin: 50px 400px;
+    width: 70%;
+    margin: auto;
 }
 
 header {
     padding: 20px;
 }
 
+#logo {
+    max-width: 80%;
+}
+
 h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 40px;
+    font-family: 'Open Sans', sans serif;
+    font-size: 32px;
+    font-weight: bold;
+    color: #6B3AAF;
+    margin-bottom: 50px;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+}
+
+#hyhbook {
+    width: 160px;
+    height: auto;
+    margin-right: 20px;
 }
 
 p {
+    text-align: justify;
+    text-justify: inter-word;
+    line-height: 32px;
+    font-weight: 20px;
+    color: #6D6E72;
+}
+
+a {
+    font-size: inherit;
+    font-weight: bold;
+    color: #99549D;
+}
+
+.blocklinks {
+    display: block;
     text-align: left;
-    line-height: 2;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+#oats {
+    width: 500px;
+    margin: 20px;
 }
 
 #textbox {
     font-family: 'Open Sans', sans serif;
-    font-size: 15px;
+    font-size: 22px;
+    color: #000;
+    font-weight: bold;
+    width: 100%;
+    height: 60px;
+}
+
+::placeholder {
+    color: gray;
+    font-weight: normal;
+    font-size: 18px;
+}
+
+#resultsandbutton {
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 100px;
+}
+
+#results {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-left: 50px;
+}
+
+#checkbutton {
+    font-family: 'Open Sans', sans serif;
+    font-size: 14px;
+    background-color: #6B3AAF;
+    height: 40px;
+    color: white;
+    width: 170px;
+    border: 0;
 }
 
 h2 {
     font-family: 'Open Sans', sans serif;
-    font-size: 20px;
+    font-size: 14px;
+    color: #99549D;
+    text-transform: uppercase;
 }
 
-ul {
-    text-align: left;
+#notsafe {
+    color: #FF0000;
+}
+
+#errorX {
+    width: 15px;
+    height: auto;
+    padding-left: 5px;
+}
+
+#MSsymbol {
+    width: 20px;
+    height: auto;
+    padding-left: 5px;
+    
+}
+
+.disclaimer {
+    font-size: 14px;
+    line-height: 22px;
+    color: #6D6E72;
 }
