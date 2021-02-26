@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<html lang="en"></html>
 <head>
   <title>HYH check</title>
   <link href="./Resources/style.css" type="text/css" rel="stylesheet">
@@ -11,59 +12,61 @@
 </head>
 <body>
     <header> 
-      <h1> Is my food migraine safe? </h1>  
+      <img id="logo" src="./Resources/Images/migraine-strong-logo.jpg" alt="Migraine Strong">
     </header>
             
     <main>
-      <p>The Heal Your Headache Diet was created by Dr. David Buchholz and published in the book by the same name. It includes the most common migraine trigger foods reported by his patients. People with frequent migraine attacks might benefit from adopting this diet for at least four months - or until migraines decrease signficantly - and then attempt to reintroduce foods individually to identify their own food triggers.</p>
+      <h1> HYH Diet Ingredient Checker </h1>
+      <div class="container">
+        <img id="hyhbook" src="./Resources/Images/hyhbook.jpg" alt="Cover of the Heal Your Headache Book">
+        <p>The Heal Your Headache (HYH) Diet was created by Dr. David Bulchholz and published in the book by the same name. The book includes the most common Migraine trigger foods reported by Dr. Bulchholz’s patients. People with frequent migraine attacks, both classic and vestibular, might benefit from adopting this diet for at least four months or until migraine decreases significantly. We call this baseline. Once you have reached your baseline with Migraine, you can then attempt to reintroduce foods individually to identify your own food triggers. To introduce new foods, it is recommended to try a small portion, increasing in amount each day if tolerated, for at least 3 days. It can take longer than that to know if a particular food is an issue, however due to the many other possible triggers, such as hormones, weather, dehydration, etc.</p>
+      </div>
+      <a class="blocklinks" href="https://www.migrainestrong.com/heal-your-headache-diet-the-migraine-diet/"> Click here to learn more about the HYH DIET and Migraine Triggers</a>
+      <img id="oats" src="./Resources/Images/overnight-oats.jpg" alt="">
+      <p>Below, there is an Ingredient Checker created by our admin team from Migraine Strong. Hopefully, this will allow you to feel more comfortable when selecting foods to order online or pick up from the store. Copy and paste, or manually enter an ingredient or ingredient list to see if the food product is considered “safe” based on the HYH Diet.</p>
       <br>
-      <p>This website was created to make it easier to determine if a particular food is or is not compliant with the hyh diet. Simply type or paste the ingredients in the box below, and click on the buttom "is it safe?" </p>
-      <br>
-     <!--  <p> This is a prototype, the only triggers currently programmed are: </p>
-        <ul>
-          <li>General triggers: caffeine, lemon, parmesan;</li> 
-          <li>MSG: gelatin, hydrolyzed, natural flavoring;</li>
-          <li>Iffy ingredients: carob, citric acid, coconut;</li>
-        </ul>
-      <br>
-      <br>
-      -->
-
-      <!--Code the input area here-->
+      
+     
+      <!--Input area-->
 
       <form id='ingredForm'>
-        <textarea id='textbox' name='ingredList' rows='15' cols='60' placeholder="Type or paste the ingredients here, separated by a comma and one space. Eg: banana, apple, peanut." required></textarea>
+        <textarea id='textbox' name='ingredList' placeholder="Type or paste the ingredients here, separated by a comma and one space. Eg: banana, apple, peanut." required></textarea>
       </form> 
-      <br>  
-        <button id='checkbutton'>Is it safe?</button>
       
+      <div class="container" id="resultsandbutton">
+        
 
-      <!--Post results here, have things in categories (MSG, types of beans, citrus fruits, etc.) to make it simpler and more readable. Colorcode the answers-->
-      <div id='results'>
-      <h2 id="notsafe" hidden>This product is not safe on the HYH diet. </h2>
-        <h2 id='notsafegen' hidden> It contains the following common migraine triggers: <span id='gentriggers'></span></h2>
-        <h2 id='notsafemsg' hidden> It contains a form of MSG or is high in Glutamine: <span id='msgtriggers'></span></h2>
-      <h2 id='iffysafety' hidden> This product contains the following ingredients that are considered iffy on the HYH diet: <span id='iffytriggers'></span></h2>
-      <h2 id="teaexception" hidden>This product contains tea. Black, white and green tea are all triggers and should be eliminated. Chamomile, peppermint and other 'teas' are safe as long as they don't contain other known triggers. </h2>
-      <h2 id="coffeeexception" hidden>Coffee is a trigger, unless it's swiss water processed, water processed or CO2 processed. </h2>
-      <h2 id="safe" hidden>This product is safe on the HYH diet!</h2>
+      <!--Results Area-->
+        <div id="results">
+          <h2 id="notsafe" hidden>This product is not safe on the HYH Diet. <img id="errorX" src="./Resources/Images/errorX.jpg" alt=""></h2>
+          <h2 id='notsafegen' hidden> It contains the following common migraine triggers: <span id='gentriggers'></span></h2>
+          <h2 id='notsafemsg' hidden> It contains a form of MSG or is high in Glutamine in these ingredients: <span id='msgtriggers'></span></h2>
+          <h2 id='iffysafety' hidden> This product contains the following ingredients that are considered "iffy" on the HYH Diet: <span id='iffytriggers'></span></h2>
+          <h2 id="teaexception" hidden>This product contains tea. Black, white and green tea are all triggers and should be eliminated. Chamomile, peppermint and other 'teas' are safe as long as they don't contain other known triggers. </h2>
+          <h2 id="coffeeexception" hidden>Coffee is a trigger, unless it's swiss water processed, water processed or CO2 processed. </h2>
+          <h2 id="safe" hidden>This product is safe on the HYH diet! <img id="MSsymbol" src="./Resources/Images/MSsymbol.jpg" alt=""></h2></h2>
+        </div>
 
+        <button id='checkbutton'>IS IT SAFE?</button>
       </div>
 
+      <p class="disclaimer">Disclaimer: Even though these foods are marked as “safe” based on the HYH Diet, everyone has different triggers. Something that may be considered safe for the majority of people, may be a personal trigger for you. </p>
+      <p class="disclaimer">There are other diets that we recommend as well, Keto x HYH as well as Charleston. If you are not seeing any results from the HYH diet, feel free to check out <a href="https://www.migrainestrong.com/finding-the-migraine-diet-that-is-best-for-you/">this information on the other recommended diets.</a> </p>
+
       <!-- Test area to learn how to use papa parse-->
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
+      
     
-      <p>Ignore this area, I'm using this to figure out how to link to a csv file so we can update the trigger list easily. -- Luisa, your coder in training. </p>
+      <!--
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <p>Ignore this area, it is for testing purposes and won't be there in the final version -- Luisa, your coder in training. </p>
       <input type="file" id="upload-csv" accept="csv">
       <button id="btn-upload-csv"> Read </button>
-      <table id="tbl-data"> </table>
-
-      <p id='plotcsv'></p>
+      -->  
      
 
     </main>

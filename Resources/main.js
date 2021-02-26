@@ -1,8 +1,5 @@
 //JS code for the HYH checker
 
-
-
-
 //This function turns everything lower case, turns the input into an array of triggers, dividing up by ', ', then turns them into singular (with possible mistakes for irregular plurals) 
 
 function makeArr() {
@@ -37,10 +34,10 @@ function makeArr() {
     function makeMsgArr(csvfile) {
         let msgArray = [];
         for (let i=0; i<csvfile.data.length; i++) {
-            msgArray.push(csvfile.data[i].MSG)
+            msgArray.push(csvfile.data[i].MSG);
         };
         msgArray = msgArray.filter( Boolean );
-        console.log(msgArray)
+        console.log(msgArray);
         return msgArray;
     };
        
@@ -84,7 +81,7 @@ function makeContainsMSGArr(csvfile) {
 function makeContainsIffyArr(csvfile) {
     let containsIffyArray = [];
     for (let i=0; i<csvfile.data.length; i++) {
-        containsIffyArray.push(csvfile.data[i].ContainsIffy)
+        containsIffyArray.push(csvfile.data[i].ContainsIffy);
     };
     containsIffyArray = containsIffyArray.filter( Boolean );
     console.log(containsIffyArray);
@@ -120,11 +117,11 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGene
         document.getElementById('notsafe').hidden = false;
         document.getElementById('notsafegen').hidden = false;
         let stringGen = generalTriggers.join(', ')
-        document.getElementById('gentriggers').innerHTML = stringGen;
+        document.getElementById('gentriggers').innerHTML = stringGen + '.';
     } else {
         noTriggerCounter -= 1;
-        console.log('This product has no general triggers')
-        console.log(noTriggerCounter)
+        console.log('This product has no general triggers');
+        console.log(noTriggerCounter);
     }
 
     
@@ -156,9 +153,9 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGene
         document.getElementById('msgtriggers').innerHTML = stringMsg + '.';
     } else {
         noTriggerCounter -= 1;
-        console.log('This product has no msg triggers')
-        console.log(noTriggerCounter)
-    }
+        console.log('This product has no msg triggers');
+        console.log(noTriggerCounter);
+    };
 
     //If statements for iffy ingredients
     let iffyTriggers = [];
@@ -186,39 +183,38 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGene
         document.getElementById('iffytriggers').innerHTML = stringIffy + '.';
     } else {
         noTriggerCounter -= 1;
-        console.log('This product has no iffy triggers')
-        console.log(noTriggerCounter)
-    }
+        console.log('This product has no iffy triggers');
+        console.log(noTriggerCounter);
+    };
     
     //Adds the tea exception
-    for (let i = 0; i < arrIngred.length; i++) {
-        if (arrIngred[i].indexOf('tea') !== -1) {
+    
+    if (arrIngred.indexOf('tea') !== -1) {
         document.getElementById('teaexception').hidden = false;   
-        } else {
+    } else {
         noTriggerCounter -= 1;
-        console.log('This product has no tea')
-        console.log(noTriggerCounter)
-        }
+        console.log('This product has no tea');
+        console.log(noTriggerCounter);
     };
+    
 
      //Adds the coffee exception
-     for (let i = 0; i < arrIngred.length; i++) {
-        if (arrIngred[i].indexOf('coffee') !== -1) {
+     
+    if (arrIngred.indexOf('coffee') !== -1) {
         document.getElementById('coffeeexception').hidden = false;   
-        } else {
+    } else {
         noTriggerCounter -= 1;
-        console.log('This product has no coffee')
-        console.log(noTriggerCounter)
-        }
+        console.log('This product has no coffee');
+        console.log(noTriggerCounter);
     };
-
+    
 
 
     //If all ingredient checks come out negative, then the product is safe. This releases the safe message.
     if (noTriggerCounter === 0){
-        console.log('This product is safe!')
+        console.log('This product is safe!');
         document.getElementById('safe').hidden = false;
-    }
+    };
 };
 
 //This adds a variable to the "Is it safe" button
@@ -227,7 +223,7 @@ const check = document.getElementById('checkbutton');
 //This function clears the results when a new value is submitted
 
 function clearresults() {
-    console.log('the form has been reset')
+    console.log('the form has been reset');
     //let textarea = document.getElementById('textbox');
     //textarea.value = "";
     document.getElementById('safe').hidden = true;
@@ -237,8 +233,18 @@ function clearresults() {
     document.getElementById('iffysafety').hidden = true;
     document.getElementById('teaexception').hidden = true;
     document.getElementById('coffeeexception').hidden = true; 
-}
+};
 
+//This function changes the button from "is it safe?" to "check more", changes its styling, and realigns the results
+
+function changeButton() {
+    document.getElementById('resultsandbutton').style.justifyContent = "space-between";
+    let button = document.getElementById('checkbutton');
+    button.innerHTML = "CHECK MORE"
+    button.style.backgroundColor = "white";
+    button.style.color = "#6B3AAF";
+    button.style.border = "1px solid #6B3AAF";
+}
 
 //The function below reads the csv file in javascript uses it to populate the arrays, then adds an event listener to clicking the is it safe button and gives the results.
 
@@ -264,9 +270,11 @@ function myMainFun(csvpath) {
             //This activates on the click of the "is it safe" button, that takes the input and loops through each array to check for triggers.
             check.onclick = function () {
                 clearresults();
+                changeButton();
                 console.log('ingredients have been submitted');
                 findTriggers(makeArr(), generalArray, msgArray, iffyArray, containsGeneralArray, containsMSGArray, containsIffyArray);
-            }
+
+            };
         }
     });
 };
@@ -302,9 +310,10 @@ let btn_upload = document.getElementById("btn-upload-csv").addEventListener('cli
                 //This activates on the click of the "is it safe" button, that takes the input and loops through each array to check for triggers.
                 check.onclick = function () {
                     clearresults();
+                    changeButton();
                     console.log('ingredients have been submitted');
                     findTriggers(makeArr(), generalArray, msgArray, iffyArray, containsGeneralArray, containsMSGArray, containsIffyArray);
-                }
+                };
             }
-        })
-})
+        });
+});
