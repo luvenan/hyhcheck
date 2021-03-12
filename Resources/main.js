@@ -16,78 +16,15 @@ function makeArr() {
 
 
 //The six functions below make arrays out of the info on the csv file imported from the database of triggers
-
-    // Selects the property General in each array and makes another array with only the general triggers items
-     
-    function makeGenArr(csvfile) {
-        let generalArray = [];
-        for (let i=0; i<csvfile.data.length; i++) {
-            generalArray.push(csvfile.data[i].General)
-        };
-        generalArray = generalArray.filter( Boolean );
-        console.log(generalArray);
-        return generalArray;
-    };
-
-    
-    //Selects the property MSG in each array and makes another array with only the msg items
-    function makeMsgArr(csvfile) {
-        let msgArray = [];
-        for (let i=0; i<csvfile.data.length; i++) {
-            msgArray.push(csvfile.data[i].MSG);
-        };
-        msgArray = msgArray.filter( Boolean );
-        console.log(msgArray);
-        return msgArray;
-    };
-       
-    // Selects the property Iffy in each array and makes another array with only the iffy triggers items
-    function makeIffyArr(csvfile) {
-        let iffyArray = [];
-        for (let i=0; i<csvfile.data.length; i++) {
-        iffyArray.push(csvfile.data[i].Iffy)
-        };
-        iffyArray = iffyArray.filter( Boolean );
-        console.log(iffyArray);
-        return iffyArray;
-    };
-
-// Selects the property containsGeneral triggers in each array and makes another array with only the keywords that if part of an ingredient name, then that ingredient is a general trigger
-
-function makeContainsGenArr(csvfile) {
-    let containsGeneralArray = [];
+//Function to make array from database.csv, to be called once for each property and create the arrays to check against.
+function makeCsvArr(csvfile, property) {
+    let arr = [];
     for (let i=0; i<csvfile.data.length; i++) {
-        containsGeneralArray.push(csvfile.data[i].ContainsGeneral)
+        arr.push(csvfile.data[i][property])
     };
-    containsGeneralArray = containsGeneralArray.filter( Boolean );
-    console.log(containsGeneralArray);
-    return containsGeneralArray;
+    arr = arr.filter(Boolean);
+    return arr;
 };
-
-// Selects the property containsMSG triggers in each array and makes another array with only the keywords that if part of an ingredient name, then that ingredient is an msg trigger
-
-function makeContainsMSGArr(csvfile) {
-    let containsMSGArray = [];
-    for (let i=0; i<csvfile.data.length; i++) {
-        containsMSGArray.push(csvfile.data[i].ContainsMSG)
-    };
-    containsMSGArray = containsMSGArray.filter( Boolean );
-    console.log(containsMSGArray);
-    return containsMSGArray;
-};
-
-// Selects the property containsIffy triggers in each array and makes another array with only the keywords that if part of an ingredient name, then that ingredient is an Iffy trigger
-
-function makeContainsIffyArr(csvfile) {
-    let containsIffyArray = [];
-    for (let i=0; i<csvfile.data.length; i++) {
-        containsIffyArray.push(csvfile.data[i].ContainsIffy);
-    };
-    containsIffyArray = containsIffyArray.filter( Boolean );
-    console.log(containsIffyArray);
-    return containsIffyArray;
-};
-
  
 //This function checks for triggers. It loop through both arrays, find common items, create third array, check if any triggers. If none, say it is safe. If some, return message saying it is unsafe with trigger list, with three possible categories: general triggers, msg, and iffy ingredients.
 
@@ -254,18 +191,18 @@ function myMainFun(csvpath) {
         header: true,
         complete: function (csvfile) {
             console.log(csvfile);
-            let generalArray = makeGenArr(csvfile);
-            //console.log(generalArray);
-            let msgArray = makeMsgArr(csvfile);
-            //console.log(msgArray);
-            let iffyArray = makeIffyArr(csvfile);
-            //console.log(iffyArray);
-            let containsGeneralArray = makeContainsGenArr(csvfile);
-            //console.log(containsGeneralArray);
-            let containsMSGArray = makeContainsMSGArr(csvfile);
-            //console.log(containsMSGArray);
-            let containsIffyArray = makeContainsIffyArr(csvfile);
-            //console.log(containsIffyArray);
+            let generalArray = makeCsvArr(csvfile, 'General');
+            console.log(generalArray);
+            let msgArray = makeCsvArr(csvfile, 'MSG');
+            console.log(msgArray);
+            let iffyArray = makeCsvArr(csvfile, 'Iffy');
+            console.log(iffyArray);
+            let containsGeneralArray = makeCsvArr(csvfile, 'ContainsGeneral');
+            console.log(containsGeneralArray);
+            let containsMSGArray = makeCsvArr(csvfile, 'ContainsMSG');
+            console.log(containsMSGArray);
+            let containsIffyArray = makeCsvArr(csvfile, 'ContainsIffy');
+            console.log(containsIffyArray);
                 
             //This activates on the click of the "is it safe" button, that takes the input and loops through each array to check for triggers.
             check.onclick = function () {
@@ -294,18 +231,19 @@ let btn_upload = document.getElementById("btn-upload-csv").addEventListener('cli
             header: true,
             complete: function (csvfile) {
                 console.log(csvfile);
-                let generalArray = makeGenArr(csvfile);
-                //console.log(generalArray);
-                let msgArray = makeMsgArr(csvfile);
-                //console.log(msgArray);
-                let iffyArray = makeIffyArr(csvfile);
-                //console.log(iffyArray);
-                let containsGeneralArray = makeContainsGenArr(csvfile);
-                //console.log(containsGeneralArray);
-                let containsMSGArray = makeContainsMSGArr(csvfile);
-                //console.log(containsMSGArray);
-                let containsIffyArray = makeContainsIffyArr(csvfile);
-                //console.log(containsIffyArray);
+                //let General = "General";
+                let generalArray = makeCsvArr(csvfile, 'General');
+                console.log(generalArray);
+                let msgArray = makeCsvArr(csvfile, 'MSG');
+                console.log(msgArray);
+                let iffyArray = makeCsvArr(csvfile, 'Iffy');
+                console.log(iffyArray);
+                let containsGeneralArray = makeCsvArr(csvfile, 'ContainsGeneral');
+                console.log(containsGeneralArray);
+                let containsMSGArray = makeCsvArr(csvfile, 'ContainsMSG');
+                console.log(containsMSGArray);
+                let containsIffyArray = makeCsvArr(csvfile, 'ContainsIffy');
+                console.log(containsIffyArray);
                 
                 //This activates on the click of the "is it safe" button, that takes the input and loops through each array to check for triggers.
                 check.onclick = function () {
