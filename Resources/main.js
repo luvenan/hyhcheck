@@ -235,7 +235,7 @@ function clearresults() {
     document.getElementById('coffeeexception').hidden = true; 
 };
 
-//This function changes the button from "is it safe?" to "check more", changes its styling, and realigns the results
+//This function changes the button from "is it safe?" to "check more", changes its styling, and ressets the results
 
 function changeButton() {
     document.getElementById('resultsandbutton').style.justifyContent = "space-between";
@@ -280,13 +280,13 @@ function myMainFun(csvpath) {
 };
 
 
-//This links the creation of the array to the csv file and calls the main function to make the app run. 
+//This links to the csv file and calls the main function to make the app run. 
 
 let csvpath = "./Resources/database.csv"
 myMainFun(csvpath);
 
 
-//This is a testing tool, allowing me to upload the csv file directly from my desktop computer without uploading everything to github
+//This is a testing tool, allowing me to upload the csv file directly from my desktop computer without uploading everything to github. It won't feature in the final version. 
 //let csvpath = document.getElementById('upload-csv').files[0]
 let btn_upload = document.getElementById("btn-upload-csv").addEventListener('click', function () {
         Papa.parse(document.getElementById('upload-csv').files[0], {
