@@ -6,7 +6,7 @@ function makeArr() {
     let ingredients = document.getElementById('textbox').value;
     let ingredlower = ingredients.toLowerCase();
     let splitArr = ingredlower.split(', ');
-    //Adds exceptions to non-standard plurals so that when I make them singular, this will be done correctly
+    //Adds exceptions to non-standard plurals so that the wrods match exactly with database
     pluralize.addSingularRule(/avocadoes$/i, 'avocado')
     pluralize.addSingularRule(/molasses$/i, 'molasses')
     pluralize.addSingularRule(/raspberries$/i, 'raspberry')
@@ -15,201 +15,108 @@ function makeArr() {
 };
 
 
-//The six functions below make arrays out of the info on the csv file imported from the database of triggers
 
-    // Selects the property General in each array and makes another array with only the general triggers items
-     
-    function makeGenArr(csvfile) {
-        let generalArray = [];
-        for (let i=0; i<csvfile.data.length; i++) {
-            generalArray.push(csvfile.data[i].General)
-        };
-        generalArray = generalArray.filter( Boolean );
-        console.log(generalArray);
-        return generalArray;
-    };
-
-    
-    //Selects the property MSG in each array and makes another array with only the msg items
-    function makeMsgArr(csvfile) {
-        let msgArray = [];
-        for (let i=0; i<csvfile.data.length; i++) {
-            msgArray.push(csvfile.data[i].MSG);
-        };
-        msgArray = msgArray.filter( Boolean );
-        console.log(msgArray);
-        return msgArray;
-    };
-       
-    // Selects the property Iffy in each array and makes another array with only the iffy triggers items
-    function makeIffyArr(csvfile) {
-        let iffyArray = [];
-        for (let i=0; i<csvfile.data.length; i++) {
-        iffyArray.push(csvfile.data[i].Iffy)
-        };
-        iffyArray = iffyArray.filter( Boolean );
-        console.log(iffyArray);
-        return iffyArray;
-    };
-
-// Selects the property containsGeneral triggers in each array and makes another array with only the keywords that if part of an ingredient name, then that ingredient is a general trigger
-
-function makeContainsGenArr(csvfile) {
-    let containsGeneralArray = [];
+//This function makes arrays from the csv file, to be called once for each property and create the arrays to check against.
+function makeCsvArr(csvfile, property) {
+    let arr = [];
     for (let i=0; i<csvfile.data.length; i++) {
-        containsGeneralArray.push(csvfile.data[i].ContainsGeneral)
+        arr.push(csvfile.data[i][property])
     };
-    containsGeneralArray = containsGeneralArray.filter( Boolean );
-    console.log(containsGeneralArray);
-    return containsGeneralArray;
+    arr = arr.filter(Boolean);
+    console.log(arr);
+    return arr;
 };
-
-// Selects the property containsMSG triggers in each array and makes another array with only the keywords that if part of an ingredient name, then that ingredient is an msg trigger
-
-function makeContainsMSGArr(csvfile) {
-    let containsMSGArray = [];
-    for (let i=0; i<csvfile.data.length; i++) {
-        containsMSGArray.push(csvfile.data[i].ContainsMSG)
-    };
-    containsMSGArray = containsMSGArray.filter( Boolean );
-    console.log(containsMSGArray);
-    return containsMSGArray;
-};
-
-// Selects the property containsIffy triggers in each array and makes another array with only the keywords that if part of an ingredient name, then that ingredient is an Iffy trigger
-
-function makeContainsIffyArr(csvfile) {
-    let containsIffyArray = [];
-    for (let i=0; i<csvfile.data.length; i++) {
-        containsIffyArray.push(csvfile.data[i].ContainsIffy);
-    };
-    containsIffyArray = containsIffyArray.filter( Boolean );
-    console.log(containsIffyArray);
-    return containsIffyArray;
-};
-
  
-//This function checks for triggers. It loop through both arrays, find common items, create third array, check if any triggers. If none, say it is safe. If some, return message saying it is unsafe with trigger list, with three possible categories: general triggers, msg, and iffy ingredients.
 
-function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGeneralArray, containsMSGArray, containsIffyArray) {
-    let noTriggerCounter = 5;
-    
-    //If statement for general triggers
-    let generalTriggers = [];
+//Declares initial state of noTriggerCounter
+
+let noTriggerCounter = 5;
+
+//This function checks for triggers. It loop through both arrays, find common items, create third array. This checks if any triggers exist. 
+function makeArrTriggers(arrIngred, propertyArr, containsPropArr) {
+    let arrTriggers = [];
     for (let i = 0; i < arrIngred.length; i++) {
-        for (let j = 0; j < generalArray.length; j++) {
-            if (arrIngred[i] === generalArray[j]) {
-                generalTriggers.push(arrIngred[i]);
-            };
-        };
-    };    
-    for (let i = 0; i < arrIngred.length; i++) {
-        for (let j = 0; j < containsGeneralArray.length; j++) {
-            if (arrIngred[i].indexOf(containsGeneralArray[j]) !== -1 && arrIngred[i].indexOf('nutmeg') === -1 && arrIngred[i].indexOf('coconut') === -1 && arrIngred[i].indexOf('butternut') === -1) {
-                generalTriggers.push(arrIngred[i]);
+        for (let j = 0; j < propertyArr.length; j++) {
+            if (arrIngred[i] === propertyArr[j]) {
+                arrTriggers.push(arrIngred[i]);
             };
         };
     };
+    for (let i = 0; i < arrIngred.length; i++) {
+        for (let j = 0; j < containsPropArr.length; j++) {
+            if (arrIngred[i].indexOf(containsPropArr[j]) !== -1) {
+                arrTriggers.push(arrIngred[i]);
+            };
+        };
+    };
+    arrTriggers = arrTriggers.filter((a,b) => arrTriggers.indexOf(a) === b);
+    return arrTriggers; 
+};
 
-    if (generalTriggers.length > 0) {
-        //removes duplicate values in the array
-        generalTriggers = generalTriggers.filter((a,b) => generalTriggers.indexOf(a) === b)
+
+//This function checks the ammount of trigger ingredients and triggers the appropriate messages in the app. 
+function isItSafe(triggerArr, triggerType, triggerTypeId, triggerListId) {
+    let newTriggerArr = [];
+    if(triggerType !== 'Iffy' && triggerArr !== undefined) {
         document.getElementById('notsafe').hidden = false;
-        document.getElementById('notsafegen').hidden = false;
-        let stringGen = generalTriggers.join(', ')
-        document.getElementById('gentriggers').innerHTML = stringGen + '.';
+        
+        //Here it loops through the array of found triggers and removes some false matches
+        for (let i = 0; i < triggerArr.length; i++) {
+            if (triggerArr[i].indexOf('nutmeg') === -1 && triggerArr[i].indexOf('coconut') === -1 && triggerArr[i].indexOf('butternut') === -1 && triggerArr[i].indexOf('cocoa butter') === -1 && triggerArr[i].indexOf('cacao butter') === -1) {
+                newTriggerArr.push(triggerArr[i]);
+            };
+        }
+        
+       console.log(`The triggerArr of ${triggerType} is ${triggerArr}`);  
+        
+       // newTriggerArr = triggerArr;
     } else {
+        newTriggerArr = triggerArr;
+    }
+    if(newTriggerArr.length > 0) {
+        document.getElementById(triggerTypeId).hidden = false;
+        let triggerStr = newTriggerArr.join(', ')
+        document.getElementById(triggerListId).innerHTML = triggerStr + '.';
+    } else {
+        console.log('This product has no ' + triggerType + ' triggers.')
         noTriggerCounter -= 1;
-        console.log('This product has no general triggers');
         console.log(noTriggerCounter);
     }
+}
 
-    
-
-    //If statements for msg triggers
-    let msgTriggers = [];
-    for (let i = 0; i < arrIngred.length; i++) {
-        for (let j = 0; j < msgArray.length; j++) {
-            if (arrIngred[i] === msgArray[j]) {
-                msgTriggers.push(arrIngred[i]);
-            };
-        };
-    };
-    for (let i = 0; i < arrIngred.length; i++) {
-        for (let j = 0; j < containsMSGArray.length; j++) {
-            if (arrIngred[i].indexOf(containsMSGArray[j]) !== -1) {
-                msgTriggers.push(arrIngred[i]);
-            };
-        };
-    };
-
-
-    if (msgTriggers.length > 0) {
-        //removes duplicate values in the array
-        msgTriggers = msgTriggers.filter((a,b) => msgTriggers.indexOf(a) === b)
-        document.getElementById('notsafe').hidden = false;
-        document.getElementById('notsafemsg').hidden = false;
-        let stringMsg = msgTriggers.join(', ')
-        document.getElementById('msgtriggers').innerHTML = stringMsg + '.';
+//Exception function, to be called with each ingredient that is in the special cases list
+function exception(arrIngred, ingredient, id) {
+    if (arrIngred.indexOf(ingredient) !== -1) {
+        document.getElementById(id).hidden = false;   
     } else {
         noTriggerCounter -= 1;
-        console.log('This product has no msg triggers');
+        console.log(`This product has no ${ingredient}!`);
         console.log(noTriggerCounter);
-    };
+    }; 
+};
 
-    //If statements for iffy ingredients
-    let iffyTriggers = [];
-    for (let i = 0; i < arrIngred.length; i++) {
-        for (let j = 0; j < iffyArray.length; j++) {
-            if (arrIngred[i] === iffyArray[j]) {
-                iffyTriggers.push(arrIngred[i]);
-            };
-        };
-    };
 
-    for (let i = 0; i < arrIngred.length; i++) {
-        for (let j = 0; j < containsIffyArray.length; j++) {
-            if (arrIngred[i].indexOf(containsIffyArray[j]) !== -1) {
-                iffyTriggers.push(arrIngred[i]);
-            };
-        };
-    };
+//This function checks for triggers and releases a message with the results
 
-    if (iffyTriggers.length > 0) {
-        //removes duplicate values in the array
-        iffyTriggers = iffyTriggers.filter((a,b) => iffyTriggers.indexOf(a) === b)
-        document.getElementById('iffysafety').hidden = false;
-        let stringIffy = iffyTriggers.join(', ')
-        document.getElementById('iffytriggers').innerHTML = stringIffy + '.';
-    } else {
-        noTriggerCounter -= 1;
-        console.log('This product has no iffy triggers');
-        console.log(noTriggerCounter);
-    };
+function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGeneralArray, containsMSGArray, containsIffyArray) {
     
-    //Adds the tea exception
-    
-    if (arrIngred.indexOf('tea') !== -1) {
-        document.getElementById('teaexception').hidden = false;   
-    } else {
-        noTriggerCounter -= 1;
-        console.log('This product has no tea');
-        console.log(noTriggerCounter);
-    };
-    
+    //Checks for triggers in arrIngred and makes arrays with each type
+    const generalTriggers = makeArrTriggers(arrIngred, generalArray, containsGeneralArray);
+    const msgTriggers = makeArrTriggers(arrIngred, msgArray, containsMSGArray);
+    const iffyTriggers = makeArrTriggers(arrIngred, iffyArray, containsIffyArray);
 
-     //Adds the coffee exception
+    
+    //Calls the isItSafe function for each type of trigger
+
+    isItSafe(generalTriggers, 'General',  'notsafegen', 'gentriggers');
+    isItSafe(msgTriggers, 'MSG', 'notsafemsg', 'msgtriggers');
+    isItSafe(iffyTriggers, 'Iffy',  'iffysafety', 'iffytriggers');
+
+    //Calls exception function for each exception
+    
+    exception(arrIngred, 'tea', 'teaexception');
+    exception(arrIngred, 'coffee', 'coffeeexception');
      
-    if (arrIngred.indexOf('coffee') !== -1) {
-        document.getElementById('coffeeexception').hidden = false;   
-    } else {
-        noTriggerCounter -= 1;
-        console.log('This product has no coffee');
-        console.log(noTriggerCounter);
-    };
-    
-
-
     //If all ingredient checks come out negative, then the product is safe. This releases the safe message.
     if (noTriggerCounter === 0){
         console.log('This product is safe!');
@@ -217,15 +124,11 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGene
     };
 };
 
-//This adds a variable to the "Is it safe" button
-const check = document.getElementById('checkbutton');
-
 //This function clears the results when a new value is submitted
 
 function clearresults() {
     console.log('the form has been reset');
-    //let textarea = document.getElementById('textbox');
-    //textarea.value = "";
+    noTriggerCounter = 5;
     document.getElementById('safe').hidden = true;
     document.getElementById('notsafe').hidden = true;
     document.getElementById('notsafegen').hidden = true;
@@ -235,7 +138,9 @@ function clearresults() {
     document.getElementById('coffeeexception').hidden = true; 
 };
 
-//This function changes the button from "is it safe?" to "check more", changes its styling, and realigns the results
+//This function changes the button from "is it safe?" to "check more", changes its styling, and ressets the results
+
+const check = document.getElementById('checkbutton');
 
 function changeButton() {
     document.getElementById('resultsandbutton').style.justifyContent = "space-between";
@@ -254,66 +159,28 @@ function myMainFun(csvpath) {
         header: true,
         complete: function (csvfile) {
             console.log(csvfile);
-            let generalArray = makeGenArr(csvfile);
-            //console.log(generalArray);
-            let msgArray = makeMsgArr(csvfile);
-            //console.log(msgArray);
-            let iffyArray = makeIffyArr(csvfile);
-            //console.log(iffyArray);
-            let containsGeneralArray = makeContainsGenArr(csvfile);
-            //console.log(containsGeneralArray);
-            let containsMSGArray = makeContainsMSGArr(csvfile);
-            //console.log(containsMSGArray);
-            let containsIffyArray = makeContainsIffyArr(csvfile);
-            //console.log(containsIffyArray);
+            let generalArray = makeCsvArr(csvfile, 'General');
+            let msgArray = makeCsvArr(csvfile, 'MSG');
+            let iffyArray = makeCsvArr(csvfile, 'Iffy');
+            let containsGeneralArray = makeCsvArr(csvfile, 'ContainsGeneral');
+            let containsMSGArray = makeCsvArr(csvfile, 'ContainsMSG');
+            let containsIffyArray = makeCsvArr(csvfile, 'ContainsIffy');
                 
             //This activates on the click of the "is it safe" button, that takes the input and loops through each array to check for triggers.
             check.onclick = function () {
+                let arrIngred = makeArr();
+                console.log(arrIngred);
                 clearresults();
                 changeButton();
                 console.log('ingredients have been submitted');
-                findTriggers(makeArr(), generalArray, msgArray, iffyArray, containsGeneralArray, containsMSGArray, containsIffyArray);
-
+                findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGeneralArray, containsMSGArray, containsIffyArray);
             };
         }
     });
 };
 
 
-//This links the creation of the array to the csv file and calls the main function to make the app run. 
+//This links to the csv file and calls the main function to make the app run. 
 
-let csvpath = "./Resources/database.csv"
+let csvpath = "./Resources/database.csv";
 myMainFun(csvpath);
-
-
-//This is a testing tool, allowing me to upload the csv file directly from my desktop computer without uploading everything to github
-//let csvpath = document.getElementById('upload-csv').files[0]
-let btn_upload = document.getElementById("btn-upload-csv").addEventListener('click', function () {
-        Papa.parse(document.getElementById('upload-csv').files[0], {
-            download: true,
-            header: true,
-            complete: function (csvfile) {
-                console.log(csvfile);
-                let generalArray = makeGenArr(csvfile);
-                //console.log(generalArray);
-                let msgArray = makeMsgArr(csvfile);
-                //console.log(msgArray);
-                let iffyArray = makeIffyArr(csvfile);
-                //console.log(iffyArray);
-                let containsGeneralArray = makeContainsGenArr(csvfile);
-                //console.log(containsGeneralArray);
-                let containsMSGArray = makeContainsMSGArr(csvfile);
-                //console.log(containsMSGArray);
-                let containsIffyArray = makeContainsIffyArr(csvfile);
-                //console.log(containsIffyArray);
-                
-                //This activates on the click of the "is it safe" button, that takes the input and loops through each array to check for triggers.
-                check.onclick = function () {
-                    clearresults();
-                    changeButton();
-                    console.log('ingredients have been submitted');
-                    findTriggers(makeArr(), generalArray, msgArray, iffyArray, containsGeneralArray, containsMSGArray, containsIffyArray);
-                };
-            }
-        });
-});
