@@ -1,5 +1,15 @@
 //JS code for the HYH checker
 
+/*const input = document.querySelector('input');
+const log = document.getElementById('values');
+
+input.addEventListener('input', updateValue);
+
+function updateValue(e) {
+  log.textContent = e.target.value;
+}
+*/
+
 //This function turns everything lower case, turns the input into an array of triggers, dividing up by ', ', then turns them into singular (with possible mistakes for irregular plurals) 
 
 function makeArr() {
@@ -120,6 +130,7 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGene
     //If all ingredient checks come out negative, then the product is safe. This releases the safe message.
     if (noTriggerCounter === 0){
         console.log('This product is safe!');
+        document.getElementById('notsafe').hidden = true;
         document.getElementById('safe').hidden = false;
     };
 };

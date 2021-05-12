@@ -66,11 +66,11 @@ a {
 
 #textbox {
     font-family: 'Open Sans', sans serif;
-    font-size: 22px;
-    color: #000;
-    font-weight: bold;
+    font-size: 18px;
+    color: #222;
+    font-weight: 600;
     width: 100%;
-    height: 60px;
+    height: 250px;
 }
 
 ::placeholder {
@@ -90,7 +90,7 @@ a {
     flex-direction: column;
     align-items: flex-start;
     flex-wrap: wrap;
-    margin-left: 50px;
+    margin-left: 0px;
 }
 
 #checkbutton {
@@ -103,11 +103,14 @@ a {
     border: 0;
 }
 
+#checkbutton:active {
+    transform: translateY(2px) translateX(2px);
+}
+
 h2 {
     font-family: 'Open Sans', sans serif;
-    font-size: 14px;
+    font-size: 18px;
     color: #99549D;
-    text-transform: uppercase;
 }
 
 #notsafe {
@@ -124,7 +127,10 @@ h2 {
     width: 20px;
     height: auto;
     padding-left: 5px;
-    
+}
+
+#disccontainer {
+    padding-top: 0px;
 }
 
 .disclaimer {
