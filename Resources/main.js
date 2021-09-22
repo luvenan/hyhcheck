@@ -64,7 +64,7 @@ function makeArrTriggers(arrIngred, propertyArr, containsPropArr) {
 };
 
 
-//This function checks the ammount of trigger ingredients and triggers the appropriate messages in the app. 
+//This function checks the ammount of trigger ingredients and fires the appropriate messages in the app. 
 function isItSafe(triggerArr, triggerType, triggerTypeId, triggerListId) {
     let newTriggerArr = [];
     if(triggerType !== 'Iffy' && triggerArr !== undefined) {
@@ -110,7 +110,7 @@ function exception(arrIngred, ingredient, id) {
 
 function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGeneralArray, containsMSGArray, containsIffyArray) {
     
-    //Checks for triggers in arrIngred and makes arrays with each type
+    //Checks for triggers in arrIngred and makes arrays with each type of trigger found
     const generalTriggers = makeArrTriggers(arrIngred, generalArray, containsGeneralArray);
     const msgTriggers = makeArrTriggers(arrIngred, msgArray, containsMSGArray);
     const iffyTriggers = makeArrTriggers(arrIngred, iffyArray, containsIffyArray);
@@ -130,7 +130,7 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGene
     //exception(arrIngred, 'cheese', 'cheeseexception');
     //exception(arrIngred, 'soy', 'soyexception');
      
-    //If all ingredient checks come out negative, then the product is safe. This releases the safe message.
+    //If all ingredient checks come out negative, then the product is safe. This releases the safe message. -- Consider changing the trigger counter to a boolean system
     if (noTriggerCounter === 0){
         console.log('This product is safe!');
         document.getElementById('notsafe').hidden = true;
@@ -180,6 +180,9 @@ function myMainFun(csvpath) {
             let containsMSGArray = makeCsvArr(csvfile, 'ContainsMSG');
             let containsIffyArray = makeCsvArr(csvfile, 'ContainsIffy');
             //add cheese variables according to columns
+            //let freshCheeseArray = makeCsvArr(csvfile, 'freshCheese');
+            //let agedCheeseArray = makeCsvArr(csvfile, 'agedCheese');
+                
                 
             //This activates on the click of the "is it safe" button, that takes the input and loops through each array to check for triggers.
             check.onclick = function () {

@@ -35,17 +35,47 @@
       <div class="container" id="resultsandbutton">
         
 
-      <!--Results Area-->
+      <!--Results Area-- rewrite according to new design-->
         <div id="results">
-          <h2 id="notsafe" hidden>This product is not safe on the HYH Diet. <img id="errorX" src="./Resources/Images/errorX.jpg" alt=""></h2>
-          <h2 id='notsafegen' hidden> It contains common migraine triggers: <span id='gentriggers'></span></h2>
-          <h2 id='notsafemsg' hidden> It contains a form of MSG or is high in Glutamine in these ingredients: <span id='msgtriggers'></span></h2>
-          <h2 id='iffysafety' hidden> This product contains ingredients that are considered "iffy" on the HYH Diet: <span id='iffytriggers'></span></h2>
-          <h2 id="teaexception" hidden>This product contains tea. Black, white and green tea are all triggers and should be eliminated. Chamomile, peppermint and other 'teas' are safe as long as they don't contain other known triggers. </h2>
-          <h2 id="coffeeexception" hidden>Coffee is a trigger, unless it's swiss water processed, water processed or CO2 processed. </h2>
-          <h2 id="safe" hidden>This product is safe on the HYH diet! <img id="MSsymbol" src="./Resources/Images/MSsymbol.jpg" alt=""></h2></h2>
-        </div>
+          <div id="summaryResults">
+            <div id="notsafe" hidden>
+              <h2 >This product is not allowed on the HYH Diet. <img id="errorX" src="./Resources/Images/errorX.jpg" alt=""></h2>
+            </div>
+            <div id="safe" hidden>
+              <h2>This product is allowed on the HYH diet! <img id="MSsymbol" src="./Resources/Images/MSsymbol.jpg" alt=""></h2>
+            </div>
+            <!-- Only show if the notsafe isn't triggered, need to go to main.js to fix that. -->
+            <div id="iffysafety" hidden>
+              <h2>This product is "iffy" on the HYH diet. Avoid it if you are early in the process.</h2>
+            </div>
+            <!-- add functionality and styling -->
+            <button>show details</button>
+          </div>
 
+          <div id="details">
+            <div id="notsafegen" class="triggerBorders" hidden>
+              <h2>Common triggers:</h2>
+              <p id="gentriggers"></p>
+            </div>
+            <div id="notsafemsg" class="triggerBorders" hidden>
+              <h2>MSG or ingredients high in glutamine:</h2>
+              <p id="msgtriggers"></p>
+            </div>
+            <div id="iffy" class="triggerBorders" hidden>
+              <h2>"Iffy" ingredients:</h2>
+              <p id="iffytriggers"></p>
+            </div>
+            <div id="teaexception" class="exception" hidden>
+              <h2>Tea:</h2>
+              <p>This contains tea. Black, white and green tea are all triggers and should be eliminated. Chamomile, peppermint and other "teas" are safe as long as they don't contain other known triggers.</p>
+            </div>
+            <div id="coffeeexception" class="exception" hidden>
+              <h2>Coffee:</h2>
+              <p>Coffee is a trigger, unless it's swiss water processed, water processed or CO2 processed.</p>
+            </div>
+          </div>
+        </div>
+        
         <button id='checkbutton'>IS IT SAFE?</button>
       </div>
 
