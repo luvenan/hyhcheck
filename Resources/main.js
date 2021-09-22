@@ -184,7 +184,8 @@ function myMainFun(csvpath) {
                 clearresults();
                 changeButton();
                 console.log('ingredients have been submitted');
-                findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGeneralArray, containsMSGArray, containsIffyArray);
+                //This adds a setTimeout function in order to have a delay in the response when clicking on "check more", this gives the user the understanding that the ingredients that they have typed have been processed by the app and the answer is accurate. 
+                setTimeout(function(){findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGeneralArray, containsMSGArray, containsIffyArray);}, 300);
             };
         }
     });
