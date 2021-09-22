@@ -126,6 +126,9 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGene
     
     exception(arrIngred, 'tea', 'teaexception');
     exception(arrIngred, 'coffee', 'coffeeexception');
+    //Future exceptions to create. When the cheese exception is coded, will have to create another line with the right 
+    //exception(arrIngred, 'cheese', 'cheeseexception');
+    //exception(arrIngred, 'soy', 'soyexception');
      
     //If all ingredient checks come out negative, then the product is safe. This releases the safe message.
     if (noTriggerCounter === 0){
@@ -176,6 +179,7 @@ function myMainFun(csvpath) {
             let containsGeneralArray = makeCsvArr(csvfile, 'ContainsGeneral');
             let containsMSGArray = makeCsvArr(csvfile, 'ContainsMSG');
             let containsIffyArray = makeCsvArr(csvfile, 'ContainsIffy');
+            //add cheese variables according to columns
                 
             //This activates on the click of the "is it safe" button, that takes the input and loops through each array to check for triggers.
             check.onclick = function () {
