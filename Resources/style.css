@@ -1,16 +1,21 @@
 /* fonts: playfair (40px) and open sans(17px). Background white. Color of paragraph is #464646, while that of title is #030303. Button with purple outline #6A3BAF size 13px, open sans, all caps*/
 
+/* 1- General styles */
+
 html {
     font-size: 17px;
     font-family: 'Open Sans', sans-serif;
 }
 
-body {
+#mainContainer {
     text-align: center;
-    width: 70%;
+    width: 70%; 
     margin: auto;
+    /* background-color:beige; */
 }
 
+
+/* 2- Header */
 header {
     padding: 20px;
 }
@@ -19,17 +24,19 @@ header {
     max-width: 80%;
 }
 
+/* 3 - Introduction */
+
+/* .container {
+    display: flex;
+    align-items: center;
+} */
+
 h1 {
     font-family: 'Open Sans', sans serif;
     font-size: 32px;
     font-weight: bold;
     color: #6B3AAF;
     margin-bottom: 50px;
-}
-
-.container {
-    display: flex;
-    align-items: center;
 }
 
 #hyhbook {
@@ -64,12 +71,16 @@ a {
     margin: 20px;
 }
 
+
+/* 4 - Input area */
 #textbox {
     font-family: 'Open Sans', sans serif;
     font-size: 16px;
     color: #222;
     font-weight: 600;
-    width: 100%;
+    width: 99%;
+    margin: 0 auto;
+
     height: 250px;
 }
 
@@ -79,20 +90,8 @@ a {
     font-size: 16px;
 }
 
-#resultsandbutton {
-    justify-content: center;
-    margin-top: 20px;
-    margin-bottom: 100px;
-}
 
-#results {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    margin-left: 0px;
-}
-
+/* 5 - Buttons */
 #checkbutton {
     font-family: 'Open Sans', sans serif;
     font-size: 14px;
@@ -103,24 +102,73 @@ a {
     border: 0;
 }
 
+#checkbutton:disabled {
+    background-color: gray;
+}
+
 #checkbutton:active {
     transform: translateY(2px) translateX(2px);
 }
 
-h2 {
-    font-family: 'Open Sans', sans serif;
-    font-size: 18px;
-    color: #99549D;
+#cbuttonarea {
+    padding: 35px 0 35px 0;
 }
 
+/* 6 - Styles for the results */
+
+.resultBox {
+    width: 100%;
+    text-align: left;
+    margin: 0 auto 0 auto;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-radius: 4px;
+}
+
+.triggerBox {
+    width: 100%;
+    margin: 0 auto 0 auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 4px;
+    border: 1px solid #222;
+}
+
+
 #notsafe {
-    color: #FF0000;
+    background-color: #CA0808;
+    border: 1px solid #CA0808;
+}
+
+#iffysafety{
+    background-color: #C16918;
+    border: 1px solid #C16918;
+}
+
+#safe {
+    background-color: #359326;
+    border: 1px solid #359326;
 }
 
 #errorX {
-    width: 15px;
+    width: auto;
+    height: 19px;
+    padding-left: 5px;
+    padding-right: 15px;
+}
+
+#checkmark {
+    width: 25px;
     height: auto;
     padding-left: 5px;
+    padding-right: 15px;
+}
+
+#questionmark {
+    width: auto;
+    height: 22px;
+    padding-left: 5px;
+    padding-right: 15px;
 }
 
 #MSsymbol {
@@ -129,8 +177,65 @@ h2 {
     padding-left: 5px;
 }
 
+h2 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    color: #fff;
+    padding-left: 3%;
+}
+
+h3 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    text-align: left;
+    padding-left: 3%;
+}
+
+#details p {
+    color: black;
+    padding-left: 3%;
+    font-size: 14px;
+    line-height: 10px;
+    padding-bottom: 10px;
+}
+
+#safetext {
+    border: 1px solid #359326;
+}
+
+#notsafegen, #notsafemsg {
+    border: 1px solid #CA0808;
+}
+
+#iffy {
+    border: 1px solid #C16918;
+}
+
+.exception {
+    border: 1px solid #735406;
+}
+
+/* #resultsandbutton {
+    background-color: gray;
+    width: 100%;
+    /* justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 100px; 
+} */
+
+/* #results {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-left: 0px;
+} */
+
+
+/* Footer */
+
 #disccontainer {
-    padding-top: 0px;
+    padding-top: 70px;
 }
 
 .disclaimer {
