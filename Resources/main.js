@@ -1,14 +1,5 @@
 //JS code for the HYH checker
 
-/*const input = document.querySelector('input');
-const log = document.getElementById('values');
-
-input.addEventListener('input', updateValue);
-
-function updateValue(e) {
-  log.textContent = e.target.value;
-}
-*/
 
 //This function turns everything lower case, turns the input into an array of triggers, dividing up by ', ', then turns them into singular (with possible mistakes for irregular plurals) 
 
@@ -64,7 +55,7 @@ function makeArrTriggers(arrIngred, propertyArr, containsPropArr) {
 };
 
 
-//This function checks the ammount of trigger ingredients and triggers the appropriate messages in the app. 
+//This function checks the ammount of trigger ingredients and fires the appropriate messages in the app. 
 function isItSafe(triggerArr, triggerType, triggerTypeId, triggerListId) {
     let newTriggerArr = [];
     if(triggerType !== 'Iffy' && triggerArr !== undefined) {
@@ -77,7 +68,7 @@ function isItSafe(triggerArr, triggerType, triggerTypeId, triggerListId) {
             };
         }
         
-       console.log(`The triggerArr of ${triggerType} is ${triggerArr}`);  
+    //    console.log(`The triggerArr of ${triggerType} is ${triggerArr}`);  
         
        // newTriggerArr = triggerArr;
     } else {
@@ -86,7 +77,7 @@ function isItSafe(triggerArr, triggerType, triggerTypeId, triggerListId) {
     if(newTriggerArr.length > 0) {
         document.getElementById(triggerTypeId).hidden = false;
         let triggerStr = newTriggerArr.join(', ')
-        document.getElementById(triggerListId).innerHTML = triggerStr + '.';
+        document.getElementById(triggerListId).innerHTML = triggerStr;
     } else {
         console.log('This product has no ' + triggerType + ' triggers.')
         noTriggerCounter -= 1;
@@ -110,7 +101,7 @@ function exception(arrIngred, ingredient, id) {
 
 function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGeneralArray, containsMSGArray, containsIffyArray) {
     
-    //Checks for triggers in arrIngred and makes arrays with each type
+    //Checks for triggers in arrIngred and makes arrays with each type of trigger found
     const generalTriggers = makeArrTriggers(arrIngred, generalArray, containsGeneralArray);
     const msgTriggers = makeArrTriggers(arrIngred, msgArray, containsMSGArray);
     const iffyTriggers = makeArrTriggers(arrIngred, iffyArray, containsIffyArray);
@@ -126,8 +117,11 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGene
     
     exception(arrIngred, 'tea', 'teaexception');
     exception(arrIngred, 'coffee', 'coffeeexception');
+    //Future exceptions to create. When the cheese exception is coded, will have to create another line with the right 
+    //exception(arrIngred, 'cheese', 'cheeseexception');
+    //exception(arrIngred, 'soy', 'soyexception');
      
-    //If all ingredient checks come out negative, then the product is safe. This releases the safe message.
+    //If all ingredient checks come out negative, then the product is safe. This releases the safe message. -- Consider changing the trigger counter to a boolean system
     if (noTriggerCounter === 0){
         console.log('This product is safe!');
         document.getElementById('notsafe').hidden = true;
@@ -149,18 +143,34 @@ function clearresults() {
     document.getElementById('coffeeexception').hidden = true; 
 };
 
+
+//This is an attempt to make the button disabled if no text, but is not successful, try again later. 
+/*
+
+console.log(document.getElementById('textbox').value)
+
+function enableButton() {
+    if(!document.getElementById('textbox').value.length) { 
+         check.disabled = true; 
+    } else { 
+        check.disabled = false;
+    }
+}
+
+document.getElementById('textbox').value.keyup= enableButton();
+*/
+
 //This function changes the button from "is it safe?" to "check more", changes its styling, and ressets the results
 
 const check = document.getElementById('checkbutton');
-
 function changeButton() {
-    document.getElementById('resultsandbutton').style.justifyContent = "space-between";
-    let button = document.getElementById('checkbutton');
-    button.innerHTML = "CHECK MORE"
-    button.style.backgroundColor = "white";
-    button.style.color = "#6B3AAF";
-    button.style.border = "1px solid #6B3AAF";
-}
+     document.getElementById('resultsandbutton').style.justifyContent = "space-between";
+     check.innerHTML = "CHECK MORE"
+     check.style.backgroundColor = "white";
+     check.style.color = "#6B3AAF";
+     check.style.border = "1px solid #6B3AAF";
+ }
+
 
 //The function below reads the csv file in javascript uses it to populate the arrays, then adds an event listener to clicking the is it safe button and gives the results.
 
@@ -176,9 +186,14 @@ function myMainFun(csvpath) {
             let containsGeneralArray = makeCsvArr(csvfile, 'ContainsGeneral');
             let containsMSGArray = makeCsvArr(csvfile, 'ContainsMSG');
             let containsIffyArray = makeCsvArr(csvfile, 'ContainsIffy');
+            //add cheese variables according to columns
+            //let freshCheeseArray = makeCsvArr(csvfile, 'freshCheese');
+            //let agedCheeseArray = makeCsvArr(csvfile, 'agedCheese');
+                
                 
             //This activates on the click of the "is it safe" button, that takes the input and loops through each array to check for triggers.
             check.onclick = function () {
+                console.log(document.getElementById('textbox').value)
                 let arrIngred = makeArr();
                 console.log(arrIngred);
                 clearresults();
