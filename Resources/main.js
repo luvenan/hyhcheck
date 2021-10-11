@@ -58,7 +58,7 @@ function makeArrTriggers(arrIngred, propertyArr, containsPropArr) {
 //This function checks the ammount of trigger ingredients and fires the appropriate messages in the app. 
 function isItSafe(triggerArr, triggerType, triggerTypeId, triggerListId) {
     let newTriggerArr = [];
-    if(triggerType !== 'Iffy' && triggerArr !== undefined) {
+    if(triggerType !== 'Iffy' && typeof triggerArr !== undefined && triggerArr.length > 0) {
         document.getElementById('notsafe').hidden = false;
         
         //Here it loops through the array of found triggers and removes some false matches
@@ -68,7 +68,7 @@ function isItSafe(triggerArr, triggerType, triggerTypeId, triggerListId) {
             };
         }
         
-    //    console.log(`The triggerArr of ${triggerType} is ${triggerArr}`);  
+    console.log(`The triggerArr of ${triggerType} is ${triggerArr}`);  
         
        // newTriggerArr = triggerArr;
     } else {
@@ -78,17 +78,28 @@ function isItSafe(triggerArr, triggerType, triggerTypeId, triggerListId) {
         document.getElementById(triggerTypeId).hidden = false;
         let triggerStr = newTriggerArr.join(', ')
         document.getElementById(triggerListId).innerHTML = triggerStr;
+        
     } else {
         console.log('This product has no ' + triggerType + ' triggers.')
         noTriggerCounter -= 1;
         console.log(noTriggerCounter);
+    }
+    if(document.getElementById('notsafe').hidden === false) {
+        document.getElementById('iffysafety').hidden = true;
+    } else if (triggerType === 'Iffy' && typeof triggerArr !== undefined && triggerArr.length > 0) {
+        document.getElementById('iffysafety').hidden = false;
     }
 }
 
 //Exception function, to be called with each ingredient that is in the special cases list
 function exception(arrIngred, ingredient, id) {
     if (arrIngred.indexOf(ingredient) !== -1) {
-        document.getElementById(id).hidden = false;   
+        document.getElementById(id).hidden = false;
+        if(document.getElementById('notsafe').hidden === false) {
+            document.getElementById('iffysafety').hidden = true;
+        } else {
+            document.getElementById('iffysafety').hidden = false;
+        }  
     } else {
         noTriggerCounter -= 1;
         console.log(`This product has no ${ingredient}!`);
@@ -111,7 +122,7 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGene
 
     isItSafe(generalTriggers, 'General',  'notsafegen', 'gentriggers');
     isItSafe(msgTriggers, 'MSG', 'notsafemsg', 'msgtriggers');
-    isItSafe(iffyTriggers, 'Iffy',  'iffysafety', 'iffytriggers');
+    isItSafe(iffyTriggers, 'Iffy',  'iffytext', 'iffytriggers');
 
     //Calls exception function for each exception
     
@@ -124,8 +135,8 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGene
     //If all ingredient checks come out negative, then the product is safe. This releases the safe message. -- Consider changing the trigger counter to a boolean system
     if (noTriggerCounter === 0){
         console.log('This product is safe!');
-        document.getElementById('notsafe').hidden = true;
         document.getElementById('safe').hidden = false;
+        document.getElementById('safetext').hidden = false;
     };
 };
 
@@ -135,10 +146,12 @@ function clearresults() {
     console.log('the form has been reset');
     noTriggerCounter = 5;
     document.getElementById('safe').hidden = true;
+    document.getElementById('safetext').hidden = true;
     document.getElementById('notsafe').hidden = true;
     document.getElementById('notsafegen').hidden = true;
-    document.getElementById('notsafemsg').hidden = true;
     document.getElementById('iffysafety').hidden = true;
+    document.getElementById('notsafemsg').hidden = true;
+    document.getElementById('iffytext').hidden = true;
     document.getElementById('teaexception').hidden = true;
     document.getElementById('coffeeexception').hidden = true; 
 };
