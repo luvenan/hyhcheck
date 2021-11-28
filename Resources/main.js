@@ -32,7 +32,7 @@ function makeCsvArr(csvfile, property) {
 
 //Declares initial state of noTriggerCounter
 
-let noTriggerCounter = 5;
+let noTriggerCounter = 6;
 
 //This function checks for triggers. It loop through both arrays, find common items, create third array. This checks if any triggers exist. 
 function makeArrTriggers(arrIngred, propertyArr, containsPropArr) {
@@ -93,19 +93,32 @@ function isItSafe(triggerArr, triggerType, triggerTypeId, triggerListId) {
 }
 
 //Exception function, to be called with each ingredient that is in the special cases list
+
 function exception(arrIngred, ingredient, id) {
-    if (arrIngred.indexOf(ingredient) !== -1) {
+    let isException = false;
+    for (let i = 0; i < arrIngred.length; i++) {
+        for (let j = 0; j < ingredient.length; j++) {
+            if (arrIngred[i].indexOf(ingredient[j]) !== -1) {
+                console.log('I found ' + ingredient);
+                isException = true;
+            };
+            };
+        };
+     
+    if (isException === true) {
+        console.log('is Exception is true')
         document.getElementById(id).hidden = false;
         if(document.getElementById('notsafe').hidden === false) {
-            document.getElementById('iffysafety').hidden = true;
+             document.getElementById('iffysafety').hidden = true;
         } else {
             document.getElementById('iffysafety').hidden = false;
-        }  
+        }
     } else {
+        console.log('isException is false')
         noTriggerCounter -= 1;
-        console.log(`This product has no ${ingredient}!`);
-        console.log(noTriggerCounter);
-    }; 
+            console.log(`This product has no ${[...ingredient]}!`);
+            console.log(noTriggerCounter);
+    }
 };
 
 
@@ -127,11 +140,11 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGene
 
     //Calls exception function for each exception
     
-    exception(arrIngred, 'tea', 'teaexception');
-    exception(arrIngred, 'coffee', 'coffeeexception');
+    exception(arrIngred, ['tea'], 'teaexception');
+    exception(arrIngred, ['coffee'], 'coffeeexception');
+    exception(arrIngred, ['soy'], 'soyexception');
     //Future exceptions to create. When the cheese exception is coded, will have to create another line with the right 
     //exception(arrIngred, 'cheese', 'cheeseexception');
-    //exception(arrIngred, 'soy', 'soyexception');
      
     //If all ingredient checks come out negative, then the product is safe. This releases the safe message. -- Consider changing the trigger counter to a boolean system
     if (noTriggerCounter === 0){
@@ -145,7 +158,7 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGene
 
 function clearresults() {
     console.log('the form has been reset');
-    noTriggerCounter = 5;
+    noTriggerCounter = 6;
     document.getElementById('safe').hidden = true;
     document.getElementById('safetext').hidden = true;
     document.getElementById('notsafe').hidden = true;
@@ -155,6 +168,7 @@ function clearresults() {
     document.getElementById('iffytext').hidden = true;
     document.getElementById('teaexception').hidden = true;
     document.getElementById('coffeeexception').hidden = true; 
+    document.getElementById('soyexception').hidden = true; 
 };
 
 
