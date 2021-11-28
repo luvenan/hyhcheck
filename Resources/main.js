@@ -1,6 +1,4 @@
 //JS code for the HYH checker
-//This is just a test
-
 
 //This function turns everything lower case, turns the input into an array of triggers, dividing up by ', ', then turns them into singular (with possible mistakes for irregular plurals) 
 
@@ -16,8 +14,6 @@ function makeArr() {
     return arrIngred;
 };
 
-
-
 //This function makes arrays from the csv file, to be called once for each property and create the arrays to check against.
 function makeCsvArr(csvfile, property) {
     let arr = [];
@@ -32,7 +28,7 @@ function makeCsvArr(csvfile, property) {
 
 //Declares initial state of noTriggerCounter
 
-let noTriggerCounter = 6;
+let noTriggerCounter = 7;
 
 //This function checks for triggers. It loop through both arrays, find common items, create third array. This checks if any triggers exist. 
 function makeArrTriggers(arrIngred, propertyArr, containsPropArr) {
@@ -143,6 +139,7 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGene
     exception(arrIngred, ['tea'], 'teaexception');
     exception(arrIngred, ['coffee'], 'coffeeexception');
     exception(arrIngred, ['soy'], 'soyexception');
+    exception(arrIngred, ['yeast'], 'yeastexception');
     //Future exceptions to create. When the cheese exception is coded, will have to create another line with the right 
     //exception(arrIngred, 'cheese', 'cheeseexception');
      
@@ -158,7 +155,7 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGene
 
 function clearresults() {
     console.log('the form has been reset');
-    noTriggerCounter = 6;
+    noTriggerCounter = 7;
     document.getElementById('safe').hidden = true;
     document.getElementById('safetext').hidden = true;
     document.getElementById('notsafe').hidden = true;
