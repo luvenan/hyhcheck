@@ -28,7 +28,7 @@ function makeCsvArr(csvfile, property) {
 
 //Declares initial state of noTriggerCounter
 
-let noTriggerCounter = 7;
+let noTriggerCounter = 8;
 
 //This function checks for triggers. It loop through both arrays, find common items, create third array. This checks if any triggers exist. 
 function makeArrTriggers(arrIngred, propertyArr, containsPropArr) {
@@ -92,15 +92,22 @@ function isItSafe(triggerArr, triggerType, triggerTypeId, triggerListId) {
 
 function exception(arrIngred, ingredient, id) {
     let isException = false;
+    let cheeseTriggers = [];
     for (let i = 0; i < arrIngred.length; i++) {
         for (let j = 0; j < ingredient.length; j++) {
             if (arrIngred[i].indexOf(ingredient[j]) !== -1) {
                 console.log('I found ' + ingredient);
                 isException = true;
+                if (id === "cheeseexception") {
+                    cheeseTriggers.push(arrIngred[i])
+                }
             };
             };
         };
      
+    if (id === "cheeseexception") {
+        document.getElementById("cheesetriggers").innerHTML = 'This ingredient looks like cheese: ' [...cheeseTriggers];
+    }
     if (isException === true) {
         console.log('is Exception is true')
         document.getElementById(id).hidden = false;
@@ -115,12 +122,13 @@ function exception(arrIngred, ingredient, id) {
             console.log(`This product has no ${[...ingredient]}!`);
             console.log(noTriggerCounter);
     }
+    
 };
 
 
 //This function checks for triggers and releases a message with the results
 
-function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGeneralArray, containsMSGArray, containsIffyArray) {
+function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGeneralArray, containsMSGArray, containsIffyArray, cheeseArray) {
     
     //Checks for triggers in arrIngred and makes arrays with each type of trigger found
     const generalTriggers = makeArrTriggers(arrIngred, generalArray, containsGeneralArray);
@@ -140,6 +148,7 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGene
     exception(arrIngred, ['coffee'], 'coffeeexception');
     exception(arrIngred, ['soy'], 'soyexception');
     exception(arrIngred, ['yeast'], 'yeastexception');
+    exception(arrIngred, cheeseArray, 'cheeseexception');
     //Future exceptions to create. When the cheese exception is coded, will have to create another line with the right 
     //exception(arrIngred, 'cheese', 'cheeseexception');
      
@@ -155,7 +164,7 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGene
 
 function clearresults() {
     console.log('the form has been reset');
-    noTriggerCounter = 7;
+    noTriggerCounter = 8;
     document.getElementById('safe').hidden = true;
     document.getElementById('safetext').hidden = true;
     document.getElementById('notsafe').hidden = true;
@@ -211,6 +220,7 @@ function myMainFun(csvpath) {
             let containsGeneralArray = makeCsvArr(csvfile, 'ContainsGeneral');
             let containsMSGArray = makeCsvArr(csvfile, 'ContainsMSG');
             let containsIffyArray = makeCsvArr(csvfile, 'ContainsIffy');
+            let cheeseArray = makeCsvArr(csvfile, 'Cheese');
             //add cheese variables according to columns
             //let freshCheeseArray = makeCsvArr(csvfile, 'freshCheese');
             //let agedCheeseArray = makeCsvArr(csvfile, 'agedCheese');
@@ -225,7 +235,7 @@ function myMainFun(csvpath) {
                 changeButton();
                 console.log('ingredients have been submitted');
                 //This adds a setTimeout function in order to have a delay in the response when clicking on "check more", this gives the user the understanding that the ingredients that they have typed have been processed by the app and the answer is accurate. 
-                setTimeout(function(){findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGeneralArray, containsMSGArray, containsIffyArray);}, 300);
+                setTimeout(function(){findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGeneralArray, containsMSGArray, containsIffyArray, cheeseArray);}, 300);
             };
         }
     });

@@ -1,63 +1,56 @@
-General,MSG,Iffy,ContainsGeneral,ContainsMSG,ContainsIffy,SpecialCases
-alcohol,accent,acacia gum,almond,autolyzed,gum,tea
-almond,agar,apple,appenzeller,broth,spice,coffee
-apple cider vinegar,ajinomoto,arabic gum ,asiago,cultured,mushroom,cheddar
-aspartame,alginate,carob,cashew,fermented,coconut,yeast
-avocado,autolyzed,carob bean gum,jerky,gelatin,,soy
-bacon,bouillion,citric acid,macademia,hydrolyzed,,
-balsamic vinegar,broth,citrus,nut,malted,,
-banana,calcium caseinate,citrus extract,peacan,flavor,,
-beef jerky,carrageenan,citrus flavoring ,peanut,flavour,,
-black tea,cultured,citrus flavouring,pickled,flavoring,,
-blue cheese,dissodium guanylate,coconut,pistachio,flavouring,,
-bologna,dissodium inosinate,gellan gum,smoked,,,
-brazil nut,fermented,grapefruit extract,yogurt,,,
-broad italian bean,gelatin,guar gum ,,,,
-buttermilk,glutamate,gum arabic,,,,
-caffeine,glutamic acid,konjac gum,,,,
-cashew,hydrolyzed,lemon extract,,,,
-champagne,kombu extract,molasses,,,,
-cheddar,malt,mushroom,,,,
-chestnut,malt extract,orange extract,,,,
-chocolate,malted,seasoning,,,,
-clementine,malted barley,soy lecithin,,,,
-cocoa extract,maltodextrin,spice,,,,
-creme fraiche,monosodium glutamate,tomato,,,,
-date,msg,xathan gum,,,,
-dried fruit,natural flavor,apple juice,,,,
-fava bean,natural flavoring,,,,,
-feta,natural flavour,,,,,
-fig,natural flavouring,,,,,
-filbert,nutritional yeast,,,,,
-gouda,pea protein,,,,,
-grapefruit,seaweed extract,,,,,
-green tea,sodium caseinate,,,,,
-ham,soy concentrate,,,,,
-hazelnut,soy isolate,,,,,
-hickory nut,soy protein,,,,,
-hot dog,soy sauce,,,,,
-kefir,stock,,,,,
-kimchi,umami,,,,,
-lemon,vegetable protein,,,,,
-lentil,whey concentrate,,,,,
-lima bean,whey isolate,,,,,
-lime,whey protein,,,,,
-live active culture,yeast extract,,,,,
-live culture,yeast food,,,,,
-liverwurst,,,,,,
-lunch meat,,,,,,
-macademia,,,,,,
-manchego,,,,,,
-miso,,,,,,
-navy bean,,,,,,
-,,,,,,
-nutrasweet,,,,,,
-onion,,,,,,
-orange,,,,,,
-papaya,,,,,,
-parmesan,,,,,,
-passion fruit,,,,,,
-pate,,,,,,
+General,MSG,Iffy,ContainsGeneral,ContainsMSG,ContainsIffy,Cheese
+alcohol,accent,acacia gum,almond,autolyzed,gum,appenzelller
+almond,agar,apple,appenzeller,broth,spice,asiago
+apple cider vinegar,ajinomoto,arabic gum ,asiago,cultured,mushroom,bastardo del grappa
+aspartame,alginate,carob,avocado,fermented,coconut,bleu
+avocado,bouillion,carob bean gum,banana,gelatin,orange,brick
+bacon,calcium caseinate,citric acid,caffeine,hydrolyzed,lime,brie
+balsamic vinegar,carrageenan,citrus extract,cashew,malted,lemon,cabra
+banana,dissodium guanylate,citrus flavoring ,chestnut,flavor,citrus,caciocavallo
+beef jerky,dissodium inosinate,citrus flavouring,chocolate,flavour,clementine,caciotta
+black tea,gelatin,coconut,cocoa,flavoring,mandarine,camembert
+bologna,glutamate,gellan gum,date,flavouring,grapefruit,cheddar
+brazil nut,glutamic acid,grapefruit extract,fig,,,cheese
+broad italian bean,kombu extract,guar gum ,hazelnut,,,chevre
+buttermilk,malt,gum arabic,jerky,,,ciliegene
+caffeine,malt extract,konjac gum,lentil,,,colby
+cashew,malted barley,lemon extract,macademia,,,edam
+champagne,maltodextrin,molasses,macademia,,,emmental
+chestnut,monosodium glutamate,mushroom,nut,,,feta
+chocolate,msg,orange extract,onion,,,fiore sardo
+clementine,natural flavor,seasoning,peacan,,,fontina
+cocoa extract,natural flavoring,soy lecithin,peanut,,,fromage
+creme fraiche,natural flavour,spice,pecan,,,goat
+date,natural flavouring,tomato,pickled,,,golden jack
+dried fruit,nutritional yeast,xathan gum,pine ,,,gouda
+fava bean,pea protein,,pineapple,,,gruyere
+fig,seaweed extract,,pistachio,,,havarti
+filbert,sodium caseinate,,raisin,,,iberico
+grapefruit,soy concentrate,,raspberry,,,kashkaval
+green tea,soy isolate,,smoked,,,leyden
+ham,soy protein,,walnut,,,manchego
+hazelnut,soy sauce,,wine,,,montaggio
+hickory nut,umami,,yogurt,,,montasio
+hot dog,vegetable protein,,,,,monterey jack
+kefir,whey concentrate,,,,,morlaco
+kimchi,whey isolate,,,,,mozzarella
+lemon,whey protein,,,,,muenster
+lentil,yeast extract,,,,,parmesan
+lima bean,yeast food,,,,,pecorino
+lime,,,,,,pepper jack
+live active culture,,,,,,primo sale
+live culture,,,,,,provola
+liverwurst,,,,,,provolone
+lunch meat,,,,,,queso
+macademia,,,,,,reggianito
+miso,,,,,,romano
+navy bean,,,,,,roquefort
+nutrasweet,,,,,,scamorza
+onion,,,,,,speedy
+orange,,,,,,stracchino
+papaya,,,,,,stravecchio
+passion fruit,,,,,,tabor
+pate,,,,,,tilsit
 pea pod,,,,,,
 peanut,,,,,,
 pecan,,,,,,
@@ -78,14 +71,12 @@ sauerkraut,,,,,,
 sausage,,,,,,
 smoked,,,,,,
 smoked meat,,,,,,
-smoked mozzarella,,,,,,
 smoked salmon,,,,,,
 smoked tuna,,,,,,
 sour cream,,,,,,
 sourdough,,,,,,
 soy flour,,,,,,
 soy milk,,,,,,
-swiss cheese,,,,,,
 tangerine,,,,,,
 tempeh,,,,,,
 tofu,,,,,,
@@ -94,9 +85,3 @@ white tea,,,,,,
 white wine,,,,,,
 wine,,,,,,
 yogurt,,,,,,
-appenzeller,,,,,,
-caciocavallo,,,,,,
-cheddar medium,,,,,,
-cheddar sharp,,,,,,
-cheddar extra sharp,,,,,,
-cheddar aged,,,,,,
