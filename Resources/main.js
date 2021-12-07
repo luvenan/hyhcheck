@@ -103,10 +103,11 @@ function exception(arrIngred, ingredient, id) {
                 }
             };
             };
-        };
+
+    };
      
     if (id === "cheeseexception") {
-        document.getElementById("cheesetriggers").innerHTML = 'This ingredient looks like cheese: ' [...cheeseTriggers];
+        document.getElementById("cheesetriggers").innerHTML = `It looks like you may have cheese as an ingredient: ${cheeseTriggers.join(', ')}`;
     }
     if (isException === true) {
         console.log('is Exception is true')
