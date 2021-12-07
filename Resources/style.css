@@ -103,7 +103,8 @@ a {
 }
 
 #checkbutton:disabled {
-    background-color: gray;
+    opacity: 0.4;
+
 }
 
 #checkbutton:active {

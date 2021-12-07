@@ -5,8 +5,16 @@
 function makeArr() {
     let ingredients = document.getElementById('textbox').value;
     let ingredlower = ingredients.toLowerCase();
-    let splitArr = ingredlower.split(', ');
-    //Adds exceptions to non-standard plurals so that the wrods match exactly with database
+    let splitArr = ingredlower.split(', ')
+    // Here I should verify that the ingredients have been entered in the correct format, but I don't know how to do that yet accounting for the one word or two, or three word ingredients
+    // let error = ''
+    // if (ingredlower.includes(',')) {
+    //     splitArr = ingredlower.split(', ')
+    //     console.log('array contains comma')
+    // } else {
+    //     error = 'Please enter ingredients separated by a comma and one space, eg: banana, apple, peanut'
+    // }
+    //Adds exceptions to non-standard plurals so that the words match exactly with database
     pluralize.addSingularRule(/avocadoes$/i, 'avocado')
     pluralize.addSingularRule(/molasses$/i, 'molasses')
     pluralize.addSingularRule(/raspberries$/i, 'raspberry')
@@ -179,21 +187,16 @@ function clearresults() {
 };
 
 
-//This is an attempt to make the button disabled if no text, but is not successful, try again later. 
-/*
+//This enables the button once something is typed in the textbox, disables it if it is removed
 
-console.log(document.getElementById('textbox').value)
-
-function enableButton() {
-    if(!document.getElementById('textbox').value.length) { 
-         check.disabled = true; 
-    } else { 
-        check.disabled = false;
+const textbox = document.getElementById('textbox')
+textbox.addEventListener("keyup", event => {
+    if(textbox.value.length !== 0){
+        check.disabled = false  
+    } else {
+      check.disabled = true;
     }
-}
-
-document.getElementById('textbox').value.keyup= enableButton();
-*/
+})
 
 //This function changes the button from "is it safe?" to "check more", changes its styling, and ressets the results
 
@@ -203,7 +206,7 @@ function changeButton() {
      check.innerHTML = "CHECK MORE"
      check.style.backgroundColor = "white";
      check.style.color = "#6B3AAF";
-     check.style.border = "1px solid #6B3AAF";
+     check.style.border = "1px solid #6B3AAF";    
  }
 
 

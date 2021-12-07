@@ -29,8 +29,9 @@
       
         <!--Input area-->
 
-        <form id='ingredForm'>
+        <form id='ingredForm' onsubmit="event.preventDefault()">
           <textarea id='textbox' name='ingredList' placeholder="Copy and paste, or manually enter an ingredient or ingredient list to see if the food product is considered “safe” based on the HYH Diet. It should be separated by a comma and one space. Eg: banana, apple, peanut." required></textarea>
+          
         </form> 
         
         <div class="container" id="resultsandbutton">
@@ -38,11 +39,11 @@
 
         <!-- check button area -->
         <div id="cbuttonarea">
-          <button id='checkbutton'>IS IT SAFE?</button>
+          <button id='checkbutton' disabled>IS IT SAFE?</button>
         </div>
         
 
-        <!--Results Area-- rewrite according to new design-->
+        <!--Results Area-->
           <div id="results">
             <div id="summaryResults">
               <div id="notsafe" class="resultBox" hidden>
