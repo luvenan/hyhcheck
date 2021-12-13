@@ -62,7 +62,7 @@
 
             <div id="details">
               <div id="safetext" class="triggerBox" hidden>
-                <h3>No triggers* were found in these ingredients.</h3>
+                <h3>No triggers were found in these ingredients*.</h3>
               </div>
               <div id="notsafegen" class="triggerBox" hidden>
                 <h3>Common triggers:</h3>
@@ -96,7 +96,26 @@
                 <h3>Cheese:</h3>
                 <p id="cheesetriggers"></p>
                 <p>Cheeses cured for less than 90 days are allowed. Aged cheeses, for more than 90 days, are not allowed in the HYH diet. We are working on a blog post on this topic, but in the meantime, you can find out a more about the topic here <a href="https://oukosher.org/blog/consumer-kosher/aged-cheese-list/?fbclid=IwAR0-cB4HqKOEUh3LzzzeQHL16sX6uM0OuYWxYpyah-pI6JFDmU4b9C8q-tc">this link.</a></p> 
+                <div hidden id="agedcheesetext">
+                  <p><img class="cheeseimage" src="./Resources/Images/cheese/X-BL.png">Aged cheese(s) - not allowed: <span id="agedcheesetriggers"></span></p>
+                </div>
+                <div hidden id="iffycheesetext">
+                  <p><img class="cheeseqmark" src="./Resources/Images/cheese/QMark-BL.png">Cheese(s) - be cautious, do more research: <span id="iffycheesetriggers"></span></p>
+                </div>
+                <div id="specialcheesetext">
+                  <p id="specialcheesetriggers" hidden></p>
+                  <p id="feta" hidden><img class="cheeseqmark" src="./Resources/Images/cheese/QMark-BL.png">Feta cheese made from cow's milk is allowed. Feta cheese made from sheep or goat's milk is not allowed.</p>
+                  <p id="cheddar" hidden><img class="cheeseqmark" src="./Resources/Images/cheese/QMark-BL.png">Mild cheddar is allowed. Medium or aged cheddar is not allowed.</p>
+                  <p id="provolone" hidden><img class="cheeseqmark" src="./Resources/Images/cheese/QMark-BL.png">Mild provolone (provolone dolce) is allowed. Provolone picante is aged for 6-12 months and is not allowed.</p>
+                  <p id="monterey-jack" hidden><img class="cheeseqmark" src="./Resources/Images/cheese/QMark-BL.png">Monterey jack made in the USA is usually cured for less than 90 days and is allowed. Those made in Europe are aged for longer and are not allowed.</p>
+                  <p id="pepper-jack" hidden><img class="cheeseqmark" src="./Resources/Images/cheese/QMark-BL.png">Pepper jack made in the USA is usually cured for less than 90 days and is allowed. Those made in Europe are aged for longer and are not allowed.</p>
+                </div>
+                <div hidden id="freshcheesetext">
+                  <p><img class="cheeseimage" src="./Resources/Images/cheese/Check-BL.png">Fresh cheese(s) - allowed: <span id="freshcheesetriggers"></span></p>
+                </div>
+              
               </div>
+
             </div>
           </div>
           
