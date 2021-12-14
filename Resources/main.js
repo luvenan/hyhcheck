@@ -5,8 +5,16 @@
 function makeArr() {
     let ingredients = document.getElementById('textbox').value;
     let ingredlower = ingredients.toLowerCase();
-    let splitArr = ingredlower.split(', ');
-    //Adds exceptions to non-standard plurals so that the wrods match exactly with database
+    let splitArr = ingredlower.split(', ')
+    // Here I should verify that the ingredients have been entered in the correct format, but I don't know how to do that yet accounting for the one word or two, or three word ingredients
+    // let error = ''
+    // if (ingredlower.includes(',')) {
+    //     splitArr = ingredlower.split(', ')
+    //     console.log('array contains comma')
+    // } else {
+    //     error = 'Please enter ingredients separated by a comma and one space, eg: banana, apple, peanut'
+    // }
+    //Adds exceptions to non-standard plurals so that the words match exactly with database
     pluralize.addSingularRule(/avocadoes$/i, 'avocado')
     pluralize.addSingularRule(/molasses$/i, 'molasses')
     pluralize.addSingularRule(/raspberries$/i, 'raspberry')
@@ -28,7 +36,7 @@ function makeCsvArr(csvfile, property) {
 
 //Declares initial state of noTriggerCounter
 
-let noTriggerCounter = 8;
+let noTriggerCounter = 10;
 
 //This function checks for triggers. It loop through both arrays, find common items, create third array. This checks if any triggers exist. 
 function makeArrTriggers(arrIngred, propertyArr, containsPropArr) {
@@ -52,10 +60,28 @@ function makeArrTriggers(arrIngred, propertyArr, containsPropArr) {
 };
 
 
+//Checks for cheese ingredients using the contains function
+function makeArrCheeseTriggers(arrIngred, cheeseArr) {
+    let arrCheeseTriggers = [];
+        for (let i = 0; i < arrIngred.length; i++) {
+        for (let j = 0; j < cheeseArr.length; j++) {
+            if (arrIngred[i].indexOf(cheeseArr[j]) !== -1) {
+                arrCheeseTriggers.push(arrIngred[i]);
+            };
+        };
+    };
+    arrCheeseTriggers = arrCheeseTriggers.filter((a,b) => arrCheeseTriggers.indexOf(a) === b);
+    return arrCheeseTriggers; 
+};
+
+
+
 //This function checks the ammount of trigger ingredients and fires the appropriate messages in the app. 
 function isItSafe(triggerArr, triggerType, triggerTypeId, triggerListId) {
     let newTriggerArr = [];
-    if(triggerType !== 'Iffy' && typeof triggerArr !== undefined && triggerArr.length > 0) {
+    
+    //First checks if array has ingredients and if it should release a not allowed message
+    if(triggerType !== 'Iffy' && triggerType !== 'FreshCheese' && triggerType !== 'IffyCheese' && triggerType !=='SpecialCheese' &&  typeof triggerArr !== undefined && triggerArr.length > 0) {
         document.getElementById('notsafe').hidden = false;
         
         //Here it loops through the array of found triggers and removes some false matches
@@ -71,21 +97,56 @@ function isItSafe(triggerArr, triggerType, triggerTypeId, triggerListId) {
     } else {
         newTriggerArr = triggerArr;
     }
+    //Shows message about the type of trigger it is
     if(newTriggerArr.length > 0) {
         document.getElementById(triggerTypeId).hidden = false;
         let triggerStr = newTriggerArr.join(', ')
         document.getElementById(triggerListId).innerHTML = triggerStr;
-        
-    } else {
+
+    //Updates the trigger counter    
+    } else if (triggerType !== 'FreshCheese') {
         console.log('This product has no ' + triggerType + ' triggers.')
         noTriggerCounter -= 1;
         console.log(noTriggerCounter);
     }
+
+    //Shows cheese exception text if it is cheese
+    if((triggerType === 'FreshCheese' || triggerType === 'AgedCheese' || triggerType === 'IffyCheese' || triggerType === 'SpecialCheese' ) && typeof triggerArr !== undefined && triggerArr.length > 0) {
+        document.getElementById('cheeseexception').hidden = false;
+        for (let i = 0; i < triggerArr.length; i++) {
+            if (triggerArr[i].indexOf('feta') !== -1) {
+                document.getElementById('feta').hidden = false;
+                document.getElementById('iffysafety').hidden = false;
+            };
+            if (triggerArr[i].indexOf('cheddar') !== -1) {
+                document.getElementById('cheddar').hidden = false;
+                document.getElementById('iffysafety').hidden = false;
+            };
+            if (triggerArr[i].indexOf('provolone') !== -1) {
+                document.getElementById('provolone').hidden = false;
+                document.getElementById('iffysafety').hidden = false;
+            };
+            if (triggerArr[i].indexOf('monterey jack') !== -1) {
+                document.getElementById('monterey-jack').hidden = false;
+                document.getElementById('iffysafety').hidden = false;
+            };
+            if (triggerArr[i].indexOf('pepper jack') !== -1) {
+                document.getElementById('pepper-jack').hidden = false;
+                document.getElementById('iffysafety').hidden = false;
+            };
+        }
+
+
+    }
+
+    //Makes sure iffy safety is only shown if not safe is hidden and if the array still has items, then release the iffy message if the type is iffy. 
     if(document.getElementById('notsafe').hidden === false) {
         document.getElementById('iffysafety').hidden = true;
-    } else if (triggerType === 'Iffy' && typeof triggerArr !== undefined && triggerArr.length > 0) {
+    } else if ((triggerType === 'Iffy' || triggerType === 'IffyCheese' || triggerType === 'SpecialCheese') && typeof triggerArr !== undefined && triggerArr.length > 0) {
         document.getElementById('iffysafety').hidden = false;
     }
+
+    
 }
 
 //Exception function, to be called with each ingredient that is in the special cases list
@@ -129,7 +190,7 @@ function exception(arrIngred, ingredient, id) {
 
 //This function checks for triggers and releases a message with the results
 
-function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGeneralArray, containsMSGArray, containsIffyArray, cheeseArray) {
+function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGeneralArray, containsMSGArray, containsIffyArray, freshCheeseArray, agedCheeseArray, iffyCheeseArray, specialCheeseArray) {
     
     //Checks for triggers in arrIngred and makes arrays with each type of trigger found
     const generalTriggers = makeArrTriggers(arrIngred, generalArray, containsGeneralArray);
@@ -137,11 +198,26 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGene
     const iffyTriggers = makeArrTriggers(arrIngred, iffyArray, containsIffyArray);
 
     
+    //Checks for cheese triggers in arrIngred and makes arrays which each type of triggers found
+    const freshCheeseTriggers = makeArrCheeseTriggers(arrIngred, freshCheeseArray);
+    const agedCheeseTriggers = makeArrCheeseTriggers(arrIngred, agedCheeseArray);
+    const iffyCheeseTriggers = makeArrCheeseTriggers(arrIngred, iffyCheeseArray);
+    const specialCheeseTriggers = makeArrCheeseTriggers(arrIngred, specialCheeseArray);
+
+    console.log('The four cheese arrays are: ' + freshCheeseTriggers + ',' + agedCheeseTriggers + ',' + iffyCheeseTriggers + ',' + specialCheeseTriggers)
+
     //Calls the isItSafe function for each type of trigger
 
     isItSafe(generalTriggers, 'General',  'notsafegen', 'gentriggers');
     isItSafe(msgTriggers, 'MSG', 'notsafemsg', 'msgtriggers');
     isItSafe(iffyTriggers, 'Iffy',  'iffytext', 'iffytriggers');
+
+
+    //Calls the isItsafe function for the cheeses
+    isItSafe(freshCheeseTriggers, 'FreshCheese', 'freshcheesetext', 'freshcheesetriggers')
+    isItSafe(agedCheeseTriggers, 'AgedCheese', 'agedcheesetext', 'agedcheesetriggers')
+    isItSafe(iffyCheeseTriggers, 'IffyCheese', 'iffycheesetext', 'iffycheesetriggers')
+    isItSafe(specialCheeseTriggers, 'SpecialCheese', 'specialcheesetext', 'specialcheesetriggers')
 
     //Calls exception function for each exception
     
@@ -149,9 +225,10 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGene
     exception(arrIngred, ['coffee'], 'coffeeexception');
     exception(arrIngred, ['soy'], 'soyexception');
     exception(arrIngred, ['yeast'], 'yeastexception');
-    exception(arrIngred, cheeseArray, 'cheeseexception');
-    //Future exceptions to create. When the cheese exception is coded, will have to create another line with the right 
-    //exception(arrIngred, 'cheese', 'cheeseexception');
+    // exception(arrIngred, cheeseArray, 'cheeseexception');
+    
+    //Calls cheese exception function
+
      
     //If all ingredient checks come out negative, then the product is safe. This releases the safe message. -- Consider changing the trigger counter to a boolean system
     if (noTriggerCounter === 0){
@@ -165,7 +242,7 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGene
 
 function clearresults() {
     console.log('the form has been reset');
-    noTriggerCounter = 8;
+    noTriggerCounter = 10;
     document.getElementById('safe').hidden = true;
     document.getElementById('safetext').hidden = true;
     document.getElementById('notsafe').hidden = true;
@@ -176,24 +253,33 @@ function clearresults() {
     document.getElementById('teaexception').hidden = true;
     document.getElementById('coffeeexception').hidden = true; 
     document.getElementById('soyexception').hidden = true; 
+    document.getElementById('freshcheesetext').hidden = true; 
+    document.getElementById('agedcheesetext').hidden = true; 
+    document.getElementById('iffycheesetext').hidden = true;
+    document.getElementById('cheeseexception').hidden = true;
+    document.getElementById('feta').hidden = true;
+    document.getElementById('cheddar').hidden = true;
+    document.getElementById('provolone').hidden = true;
+    document.getElementById('monterey-jack').hidden = true;
+    document.getElementById('pepper-jack').hidden = true;
 };
 
 
-//This is an attempt to make the button disabled if no text, but is not successful, try again later. 
-/*
 
-console.log(document.getElementById('textbox').value)
 
-function enableButton() {
-    if(!document.getElementById('textbox').value.length) { 
-         check.disabled = true; 
-    } else { 
-        check.disabled = false;
+
+
+
+//This enables the button once something is typed in the textbox, disables it if it is removed
+
+const textbox = document.getElementById('textbox')
+textbox.addEventListener("keyup", event => {
+    if(textbox.value.length !== 0){
+        check.disabled = false  
+    } else {
+      check.disabled = true;
     }
-}
-
-document.getElementById('textbox').value.keyup= enableButton();
-*/
+})
 
 //This function changes the button from "is it safe?" to "check more", changes its styling, and ressets the results
 
@@ -203,7 +289,7 @@ function changeButton() {
      check.innerHTML = "CHECK MORE"
      check.style.backgroundColor = "white";
      check.style.color = "#6B3AAF";
-     check.style.border = "1px solid #6B3AAF";
+     check.style.border = "1px solid #6B3AAF";    
  }
 
 
@@ -221,11 +307,10 @@ function myMainFun(csvpath) {
             let containsGeneralArray = makeCsvArr(csvfile, 'ContainsGeneral');
             let containsMSGArray = makeCsvArr(csvfile, 'ContainsMSG');
             let containsIffyArray = makeCsvArr(csvfile, 'ContainsIffy');
-            let cheeseArray = makeCsvArr(csvfile, 'Cheese');
-            //add cheese variables according to columns
-            //let freshCheeseArray = makeCsvArr(csvfile, 'freshCheese');
-            //let agedCheeseArray = makeCsvArr(csvfile, 'agedCheese');
-                
+            let freshCheeseArray = makeCsvArr(csvfile, 'FreshCheese');
+            let agedCheeseArray = makeCsvArr(csvfile, 'AgedCheese');
+            let iffyCheeseArray = makeCsvArr(csvfile, 'IffyCheese');
+            let specialCheeseArray = makeCsvArr(csvfile, 'SpecialCheese');
                 
             //This activates on the click of the "is it safe" button, that takes the input and loops through each array to check for triggers.
             check.onclick = function () {
@@ -236,7 +321,7 @@ function myMainFun(csvpath) {
                 changeButton();
                 console.log('ingredients have been submitted');
                 //This adds a setTimeout function in order to have a delay in the response when clicking on "check more", this gives the user the understanding that the ingredients that they have typed have been processed by the app and the answer is accurate. 
-                setTimeout(function(){findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGeneralArray, containsMSGArray, containsIffyArray, cheeseArray);}, 300);
+                setTimeout(function(){findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGeneralArray, containsMSGArray, containsIffyArray, freshCheeseArray, agedCheeseArray, iffyCheeseArray, specialCheeseArray);}, 300);
             };
         }
     });

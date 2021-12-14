@@ -103,7 +103,8 @@ a {
 }
 
 #checkbutton:disabled {
-    background-color: gray;
+    opacity: 0.4;
+
 }
 
 #checkbutton:active {
@@ -217,6 +218,16 @@ h3 {
 
 .exception {
     border: 1px solid #735406;
+}
+
+.cheeseimage {
+    scale: 80%;
+    margin-right: 10px;
+}
+
+.cheeseqmark {
+    scale: 80%;
+    margin-right: 14px;
 }
 
 /* #resultsandbutton {
