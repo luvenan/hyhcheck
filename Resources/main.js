@@ -38,7 +38,7 @@ function makeCsvArr(csvfile, property) {
 
 let noTriggerCounter = 10;
 
-//This function checks for triggers. It loop through both arrays, find common items, create third array. This checks if any triggers exist. 
+//This function checks for triggers. It loop through both arrays, find common items, create third array, then loops through the contains array and adds those to the final array. Then it removes the duplicates that come up. This checks if any triggers exist. 
 function makeArrTriggers(arrIngred, propertyArr, containsPropArr) {
     let arrTriggers = [];
     for (let i = 0; i < arrIngred.length; i++) {
@@ -61,7 +61,7 @@ function makeArrTriggers(arrIngred, propertyArr, containsPropArr) {
 
 
 //Checks for cheese ingredients using the contains function
-function makeArrCheeseTriggers(arrIngred, cheeseArr) {
+function makeArrCheeseTriggers(arrIngred, cheeseArr, cheeseType) {
     let arrCheeseTriggers = [];
         for (let i = 0; i < arrIngred.length; i++) {
         for (let j = 0; j < cheeseArr.length; j++) {
@@ -70,7 +70,16 @@ function makeArrCheeseTriggers(arrIngred, cheeseArr) {
             };
         };
     };
+    
     arrCheeseTriggers = arrCheeseTriggers.filter((a,b) => arrCheeseTriggers.indexOf(a) === b);
+
+    //Filters out blue cheese in the iffy array - reuse this method for refactoring the nutmeg, etc. issue
+    if(cheeseType === 'iffyCheese') {
+        arrCheeseTriggers = arrCheeseTriggers.filter((a) => a !== 'blue cheese')
+        arrCheeseTriggers = arrCheeseTriggers.filter((a) => a !== 'queso fresco')
+    }
+
+    console.log(arrCheeseTriggers)
     return arrCheeseTriggers; 
 };
 
@@ -84,7 +93,7 @@ function isItSafe(triggerArr, triggerType, triggerTypeId, triggerListId) {
     if(triggerType !== 'Iffy' && triggerType !== 'FreshCheese' && triggerType !== 'IffyCheese' && triggerType !=='SpecialCheese' &&  typeof triggerArr !== undefined && triggerArr.length > 0) {
         document.getElementById('notsafe').hidden = false;
         
-        //Here it loops through the array of found triggers and removes some false matches
+        //Here it loops through the array of found triggers and removes some false matches. I'm not sure this belongs here, might move this on the next refactoring. 
         for (let i = 0; i < triggerArr.length; i++) {
             if (triggerArr[i].indexOf('nutmeg') === -1 && triggerArr[i].indexOf('coconut') === -1 && triggerArr[i].indexOf('butternut') === -1 && triggerArr[i].indexOf('cocoa butter') === -1 && triggerArr[i].indexOf('cacao butter') === -1) {
                 newTriggerArr.push(triggerArr[i]);
@@ -199,10 +208,10 @@ function findTriggers(arrIngred, generalArray, msgArray, iffyArray, containsGene
 
     
     //Checks for cheese triggers in arrIngred and makes arrays which each type of triggers found
-    const freshCheeseTriggers = makeArrCheeseTriggers(arrIngred, freshCheeseArray);
-    const agedCheeseTriggers = makeArrCheeseTriggers(arrIngred, agedCheeseArray);
-    const iffyCheeseTriggers = makeArrCheeseTriggers(arrIngred, iffyCheeseArray);
-    const specialCheeseTriggers = makeArrCheeseTriggers(arrIngred, specialCheeseArray);
+    const freshCheeseTriggers = makeArrCheeseTriggers(arrIngred, freshCheeseArray, 'freshCheese');
+    const agedCheeseTriggers = makeArrCheeseTriggers(arrIngred, agedCheeseArray, 'agedCheese');
+    const iffyCheeseTriggers = makeArrCheeseTriggers(arrIngred, iffyCheeseArray, 'iffyCheese');
+    const specialCheeseTriggers = makeArrCheeseTriggers(arrIngred, specialCheeseArray, 'specialCheese');
 
     console.log('The four cheese arrays are: ' + freshCheeseTriggers + ',' + agedCheeseTriggers + ',' + iffyCheeseTriggers + ',' + specialCheeseTriggers)
 
