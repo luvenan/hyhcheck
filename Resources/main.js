@@ -1,5 +1,6 @@
 //JS code for the HYH checker
 
+
 //This function turns everything lower case, turns the input into an array of triggers, dividing up by ', ', then turns them into singular (with possible mistakes for irregular plurals) 
 
 function makeArr() {
