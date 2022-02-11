@@ -149,6 +149,7 @@ function isItSafe(triggerArr, triggerType, triggerTypeId, triggerListId) {
 
     }
 
+    
     //Makes sure iffy safety is only shown if not safe is hidden and if the array still has items, then release the iffy message if the type is iffy. 
     if(document.getElementById('notsafe').hidden === false) {
         document.getElementById('iffysafety').hidden = true;
