@@ -30,7 +30,7 @@ function makeArrTriggers(arrIngred, propertyArr, containsPropArr, triggerType) {
             arrTriggers = arrTriggers.filter((a) => a !== 'cacao butter');
             arrTriggers = arrTriggers.filter((a) => a !== 'coconut');
         }; 
-    }
+    };
 
     //Filters out false matches in certain types of arrays -- add here
 
