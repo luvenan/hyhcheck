@@ -32,8 +32,6 @@ function makeArrTriggers(arrIngred, propertyArr, containsPropArr, triggerType) {
         }; 
     };
 
-    //Filters out false matches in certain types of arrays -- add here
-
     return arrTriggers;
 };
 
